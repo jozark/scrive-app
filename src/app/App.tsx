@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import LoginButton from './components/LoginButton/LoginButton';
 
 function App(): JSX.Element {
   const [token, setToken] = useState('');
@@ -13,7 +16,14 @@ function App(): JSX.Element {
     getToken();
   }, []);
 
-  return <p>app</p>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route></Route>
+      </Switch>
+      {token !== '' ? <p>SearchBar</p> : <LoginButton />}
+    </BrowserRouter>
+  );
 }
 
 export default App;
