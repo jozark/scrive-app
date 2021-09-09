@@ -85,6 +85,24 @@ app.get('/api/auth/token', (request, response) => {
   });
 });
 
+app.get('/api/episode/:id', async (req, res) => {
+  const { id } = req.params;
+  const token = req.cookies.token;
+  const response = await fetch(
+    'https://api.spotify.com/v1/episodes/512ojhOuo1ktJprKbVcKyQ',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const episodeData = await response.json();
+  res.send(episodeData);
+});
+
 app.get('/api/hello', (_request, response) => {
   response.send('Hello API!');
 });
