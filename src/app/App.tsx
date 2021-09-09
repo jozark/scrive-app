@@ -1,17 +1,19 @@
-import React from 'react';
-// import styles from './App.module.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 function App(): JSX.Element {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/">
-          <main>Home</main>
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    async function getToken(): Promise<void> {
+      const response = await fetch('/api/auth/token');
+      const data = await response.json();
+      setToken(data.token);
+    }
+
+    getToken();
+  }, []);
+
+  return <p>app</p>;
 }
 
 export default App;
