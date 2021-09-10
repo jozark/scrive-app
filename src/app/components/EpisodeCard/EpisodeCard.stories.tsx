@@ -4,8 +4,12 @@ import EpisodeCard from './EpisodeCard';
 export default {
   title: 'Component/EpisodeCard',
   component: EpisodeCard,
+  parameters: {
+    backgrounds: {
+      default: 'dark',
+    },
+  },
 };
-
 export const Import = (): JSX.Element => (
   <EpisodeCard
     type="import"
