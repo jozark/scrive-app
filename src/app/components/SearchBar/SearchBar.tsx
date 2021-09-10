@@ -1,10 +1,11 @@
 import React from 'react';
-import styles from './Searchbar.module.css';
+import SearchIcon from '../assets/SearchIcon';
+import styles from './SearchBar.module.css';
 
 type SearchBarProps = {
   searchValue: string;
   setSearchValue: (searchValue: string) => void;
-  handleSearch: () => void;
+  handleSearch: (event: React.FormEvent) => void;
   className?: string;
 };
 
@@ -19,6 +20,7 @@ export default function SearchBar({
       className={`${styles.container} ${className}`}
       onSubmit={handleSearch}
     >
+      <SearchIcon widths={20} height={20} />
       <input
         type="search"
         placeholder="title of episode"
