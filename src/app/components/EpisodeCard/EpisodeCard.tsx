@@ -22,13 +22,19 @@ export default function EpisodeCard({
 }: EpisodeCardProps): JSX.Element {
   return (
     <div className={`${styles.card} ${className}`} onClick={handleOnClick}>
-      <img src={image} alt={`cover of ${title}`} />
-      <div>
-        <p>{title}</p>
-        <p>{show}</p>
-        <div className={styles.card__time}>
-          <TimeIcon width={10} height={10} />
-          <p>{time}</p>
+      <img
+        className={styles.card__image}
+        src={image}
+        alt={`cover of ${title}`}
+      />
+      <div className={styles.card__info}>
+        <div>
+          <p className={styles.info__title}>{title}</p>
+          <p className={styles.info__show}>{show}</p>
+        </div>
+        <div className={styles.info__time}>
+          <TimeIcon width={13} height={13} />
+          <p className={styles.time__text}>{time}</p>
         </div>
       </div>
     </div>
