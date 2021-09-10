@@ -16,12 +16,10 @@ export default function SearchBar({
   className,
 }: SearchBarProps): JSX.Element {
   return (
-    <form
-      className={`${styles.container} ${className}`}
-      onSubmit={handleSearch}
-    >
-      <SearchIcon widths={20} height={20} />
+    <form className={`${styles.search} ${className}`} onSubmit={handleSearch}>
+      <SearchIcon widths={20} height={20} fill="#c2c2c2" />
       <input
+        className={styles.search__input}
         type="search"
         placeholder="title of episode"
         value={searchValue}
