@@ -1,0 +1,17 @@
+.button {
+  text-decoration: none;
+  color: white;
+  display: grid;
+  background-color: var(--spotify);
+  grid-template-columns: 2rem 1fr;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  gap: 1rem;
+}
+
+.button__text {
+  justify-self: center;
+  align-self: center;
+  margin: 0;
+}
