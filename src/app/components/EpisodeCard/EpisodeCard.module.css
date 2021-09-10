@@ -1,0 +1,40 @@
+.card {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+}
+
+.card__image {
+  object-fit: contain;
+  max-width: 4.5rem;
+  border-radius: 5px;
+}
+
+.card__info {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 0.25rem 0;
+}
+
+.info__title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding-bottom: 0.125rem;
+}
+
+.info__show {
+  color: var(--txt-secondary);
+}
+
+.info__time {
+  align-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.time__text {
+  font-size: 0.75rem;
+  color: var(--txt-secondary);
+}
