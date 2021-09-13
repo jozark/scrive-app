@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Typography.module.css';
 
 type TypographyProps = {
-  type: 'h1' | 'h2' | `h3` | `p--active` | `p--passive`;
+  type: 'h1' | 'h2' | `h3` | `p` | `passive`;
   children: ReactNode;
   className?: string;
 };
@@ -13,26 +13,15 @@ export default function Typography({
   children,
   className,
 }: TypographyProps): JSX.Element {
-  switch (type) {
-    case 'h1':
-      return (
-        <h1 className={`${styles.headingOne} ${className}`}>{children}</h1>
-      );
-    case 'h2':
-      return (
-        <h2 className={`${styles.headingTwo} ${className}`}>{children}</h2>
-      );
-    case 'h3':
-      return (
-        <h3 className={`${styles.headingThree} ${className}`}>{children}</h3>
-      );
-    case 'p--active':
-      return (
-        <p className={`${styles.paragraphActive} ${className}`}>{children}</p>
-      );
-    case 'p--passive':
-      return (
-        <p className={`${styles.paragraphPassive} ${className}`}>{children}</p>
-      );
-  }
+  const TypeMap = {
+    h1: <h1 className={`${styles.headingOne} ${className}`}>{children}</h1>,
+    h2: <h2 className={`${styles.headingTwo} ${className}`}>{children}</h2>,
+    h3: <h3 className={`${styles.headingThree} ${className}`}>{children}</h3>,
+    p: <p className={`${styles.paragraph} ${className}`}>{children}</p>,
+    passive: (
+      <p className={`${styles.paragraphPassive} ${className}`}>{children}</p>
+    ),
+  };
+
+  return TypeMap[type];
 }
