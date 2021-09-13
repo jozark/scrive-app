@@ -19,3 +19,15 @@ button {
   border-radius: 50%;
   background-color: var(--txt-primary);
 }
+
+.type--squareSmall {
+  background-color: var(--accent-primary);
+  padding: 0.625rem;
+  border-radius: 4px;
+}
+
+.type--squareBig {
+  background-color: var(--accent-primary);
+  padding: 1.125rem;
+  border-radius: 8px;
+}
