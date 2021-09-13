@@ -29,7 +29,7 @@ export default function EpisodeCard({
   className,
 }: EpisodeCardProps): JSX.Element {
   return (
-    <div
+    <article
       className={`${styles.card} ${className} ${styles[`type--${type}`]}`}
       onClick={handleOnClick}
     >
@@ -38,7 +38,7 @@ export default function EpisodeCard({
         src={image}
         alt={`cover of ${title}`}
       />
-      <div className={styles.card__info}>
+      <section className={styles.card__info}>
         <div>
           <p className={styles.info__title}>{title}</p>
           <p className={styles.info__show}>{show}</p>
@@ -68,13 +68,13 @@ export default function EpisodeCard({
             </div>
           )}
         </div>
-      </div>
+      </section>
       {type === 'import' && (
         <button className={styles.addButton} onClick={handleButtonClick}>
           +
         </button>
       )}
       {/* TODO Change with Button and Icon Component */}
-    </div>
+    </article>
   );
 }
