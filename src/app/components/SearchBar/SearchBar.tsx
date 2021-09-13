@@ -17,7 +17,7 @@ export default function SearchBar({
 }: SearchBarProps): JSX.Element {
   return (
     <form className={`${styles.search} ${className}`} onSubmit={handleSearch}>
-      <SearchIcon widths={20} height={20} fill="#c2c2c2" />
+      <SearchIcon width={20} height={20} fill="#c2c2c2" />
       <input
         className={styles.search__input}
         type="search"
