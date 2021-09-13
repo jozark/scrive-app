@@ -2,11 +2,12 @@ import React from 'react';
 import TimeIcon from '../assets/TimeIcon';
 import NoteIcon from '../assets/NoteIcon';
 import StarIcon from '../assets/StarIcon';
+import Fallback from '../assets/fallbackImage.png';
 import styles from './EpisodeCard.module.css';
 
 type EpisodeCardProps = {
   type: 'note' | 'import';
-  image: string;
+  image?: string;
   title: string;
   show: string;
   time: string;
@@ -18,7 +19,7 @@ type EpisodeCardProps = {
 
 export default function EpisodeCard({
   type,
-  image,
+  image = Fallback,
   title,
   show,
   time,
