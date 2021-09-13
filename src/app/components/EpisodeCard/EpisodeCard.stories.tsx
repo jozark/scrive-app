@@ -17,6 +17,18 @@ export const Import = (): JSX.Element => (
     show="Philosophize This!"
     title="Aristotle Pt. 1"
     time="1:25h"
+    handleButtonClick={() => console.log('Button Clicked')}
+  />
+);
+
+export const Note = (): JSX.Element => (
+  <EpisodeCard
+    type="note"
+    notes={25}
+    image="https://upload.wikimedia.org/wikipedia/en/4/4b/The_Joe_Rogan_Experience_logo.jpg"
+    show="Philosophize This!"
+    title="Aristotle Pt. 1"
+    time="1:25h"
     handleOnClick={() => console.log('click')}
   />
 );
