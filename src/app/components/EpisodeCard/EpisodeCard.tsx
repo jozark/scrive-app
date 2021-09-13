@@ -37,6 +37,8 @@ export default function EpisodeCard({
           <p className={styles.time__text}>{time}</p>
         </div>
       </div>
+      <button>+</button>
+      {/* TODO Change with Button Component */}
     </div>
   );
 }
