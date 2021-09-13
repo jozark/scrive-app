@@ -1,9 +1,21 @@
-.button {
-  color: #000;
-  background: linear-gradient(180deg, #ffbb3b, #ffa90a);
-  font-size: 0.8em;
-  padding: 0.8em 2em;
+button {
   border: none;
-  border-radius: 0.4em;
-  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  display: grid;
+}
+
+.type--circle {
+  padding: 1.125rem;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+}
+
+.type--circleWhite {
+  padding: 1.125rem;
+  border-radius: 50%;
+  background-color: var(--txt-primary);
 }
