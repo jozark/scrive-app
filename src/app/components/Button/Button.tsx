@@ -1,12 +1,25 @@
 import React from 'react';
-import type { ReactNode } from 'react';
-import classes from './Button.module.css';
+import styles from './Button.module.css';
 
 type ButtonProps = {
-  children: ReactNode;
+  type: 'circle' | 'circleWhite' | 'icon' | 'squareSmall' | 'squareBig';
+  onButtonClick: () => void;
+  children: React.ReactNode;
+  className?: string;
 };
-function Button({ children }: ButtonProps): JSX.Element {
-  return <button className={classes.button}>{children}</button>;
-}
 
-export default Button;
+export default function Button({
+  type,
+  onButtonClick,
+  className,
+  children,
+}: ButtonProps): JSX.Element {
+  return (
+    <button
+      onClick={onButtonClick}
+      className={`${styles.button} ${styles[`type--${type}`]} ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
