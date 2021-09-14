@@ -44,6 +44,7 @@
 .icons__container > div {
   display: flex;
   gap: 0.25rem;
+  align-items: center;
 }
 
 .icons__text {
@@ -53,6 +54,7 @@
 
 .icons__timeWrapper {
   display: flex;
+  align-items: center;
   gap: 0.25rem;
 }
 
