@@ -1,9 +1,55 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/font/Lato-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/font/Lato-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Yrsa';
+  src: url('assets/font/Yrsa-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Yrsa';
+  src: url('assets/font/Yrsa-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  src: url('assets/font/FrankRuhlLibre-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  src: url('assets/font/FrankRuhlLibre-Black.ttf');
+  font-weight: 900;
+}
+
 :root {
   --spotify: #1db954;
   --bg-secondary: #252525;
   --bg-primary: #141414;
   --txt-secondary: #c2c2c2;
   --txt-primary: #fff;
+  --accent-primary: #908fdc;
+  --font-default: 'Lato', sans-serif;
+  --font-headingOne: 'Frank Ruhl Libre', serif;
+  --font-headingTwo: 'Yrsa', serif;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
 }
 
 *,
@@ -14,10 +60,13 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-default);
   color: var(--txt-primary);
 }
 
+h1,
+h2,
+h3,
 p {
   margin: 0;
 }
