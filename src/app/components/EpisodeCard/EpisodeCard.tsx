@@ -2,6 +2,8 @@ import React from 'react';
 import TimeIcon from '../assets/TimeIcon';
 import NoteIcon from '../assets/NoteIcon';
 import StarIcon from '../assets/StarIcon';
+import AddIcon from '../assets/AddIcon';
+import Button from '../Button/Button';
 import Fallback from '../assets/fallbackImage.png';
 import styles from './EpisodeCard.module.css';
 import Typography from '../Typography/Typography';
@@ -14,7 +16,7 @@ type EpisodeCardProps = {
   time: string;
   notes?: number;
   handleOnClick?: () => void;
-  handleButtonClick?: () => void;
+  handleButtonClick: () => void;
   className?: string;
 };
 
@@ -75,11 +77,14 @@ export default function EpisodeCard({
         </div>
       </section>
       {type === 'import' && (
-        <button className={styles.addButton} onClick={handleButtonClick}>
-          +
-        </button>
+        <Button
+          className={styles.addButton}
+          type="squareSmall"
+          onButtonClick={handleButtonClick}
+        >
+          <AddIcon width={12} height={12} fill="#fff" />
+        </Button>
       )}
-      {/* TODO Change with Button and Icon Component */}
     </article>
   );
 }
