@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import styles from './Spotify.module.css';
