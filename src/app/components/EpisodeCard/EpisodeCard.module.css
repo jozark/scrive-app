@@ -1,0 +1,67 @@
+.card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+}
+
+.type--import {
+  grid-template-columns: auto 1fr auto;
+}
+
+.card__image {
+  object-fit: contain;
+  max-width: 4.5rem;
+  border-radius: 5px;
+}
+
+.card__info {
+  padding: 0.25rem 0;
+  display: grid;
+}
+
+.info__title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding-bottom: 0.125rem;
+}
+
+.info__show {
+  color: var(--txt-secondary);
+}
+
+.info__icons {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  gap: 0.5rem;
+}
+
+.icons__container {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.icons__container > div {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.icons__text {
+  font-size: 0.75rem;
+  color: var(--txt-secondary);
+}
+
+.icons__timeWrapper {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.share {
+  font-size: 0.75rem;
+  align-self: flex-end;
+  justify-self: end;
+}
+
+.addButton {
+  align-self: center;
+}

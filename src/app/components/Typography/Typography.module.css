@@ -1,0 +1,25 @@
+.headingOne {
+  font-family: var(--font-headingOne);
+  font-weight: 900;
+  font-size: 1.75;
+}
+
+.headingTwo {
+  font-family: var(--font-headingTwo);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.headingThree {
+  font-family: var(--font-default);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.paragraph {
+  line-height: 1.5;
+}
+
+.subHeading {
+  color: var(--txt-secondary);
+}
