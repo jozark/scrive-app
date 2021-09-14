@@ -3,5 +3,9 @@
   grid-auto-flow: column;
   align-items: center;
   grid-template-columns: auto 1fr auto;
-  gap: 0.5rem;
+  gap: 1rem;
+}
+
+.header > h2 {
+  padding-top: 0.2rem;
 }
