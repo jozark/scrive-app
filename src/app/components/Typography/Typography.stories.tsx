@@ -17,6 +17,6 @@ export const typography = (): JSX.Element => (
     <Typography type="h2">Heading H2</Typography>
     <Typography type="h3">Heading H3</Typography>
     <Typography type="p">Paragraph Active</Typography>
-    <Typography type="passive">Paragraph Passive</Typography>
+    <Typography type="subHeading">Sub-heading</Typography>
   </>
 );
