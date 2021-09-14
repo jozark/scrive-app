@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function searchIcon(
+export default function SearchIcon(
   props: React.SVGProps<SVGSVGElement>
 ): JSX.Element {
   return (
