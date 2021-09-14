@@ -21,7 +21,7 @@ function App(): JSX.Element {
       <Switch>
         <Route></Route>
       </Switch>
-      {token !== '' ? <p>SearchBar</p> : <LoginButton />}
+      {token ? <p>SearchBar</p> : <LoginButton />}
     </BrowserRouter>
   );
 }
