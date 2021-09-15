@@ -68,6 +68,7 @@ export default function Spotify(): JSX.Element {
         {mockData !== null &&
           mockData.map((data, i) => (
             <EpisodeCard
+              handleButtonClick={() => console.log('click')}
               key={i}
               type="import"
               image={data.image}
