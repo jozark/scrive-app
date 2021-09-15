@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import Header from '../../components/Header/Header';
 import styles from './Spotify.module.css';
 
 const mockData = [
@@ -59,6 +60,9 @@ export default function Spotify(): JSX.Element {
 
   return (
     <main className={styles.container}>
+      <Header className={styles.header} type="default">
+        Import
+      </Header>
       <SearchBar
         searchValue={searchValue}
         setSearchValue={setSearchValue}
