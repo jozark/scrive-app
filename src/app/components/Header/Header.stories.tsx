@@ -16,7 +16,7 @@ export const optionsHeader = (): JSX.Element => (
 );
 
 export const noOptionsHeader = (): JSX.Element => (
-  <Header type="noOptions">Aristotle Pt.3</Header>
+  <Header type="default">Aristotle Pt.3</Header>
 );
 
 export const home = (): JSX.Element => <Header type="home">Scrive</Header>;
