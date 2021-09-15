@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import styles from './App.module.css';
+import React from 'react';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import Spotify from './pages/Spotify/Spotify';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App(): JSX.Element {
-  const [count, setCount] = useState<number>(0);
-
   return (
     <BrowserRouter>
       <Switch>
