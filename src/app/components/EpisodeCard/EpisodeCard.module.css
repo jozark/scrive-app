@@ -10,7 +10,7 @@
 
 .card__image {
   object-fit: contain;
-  max-width: 4.5rem;
+  width: 4.5rem;
   border-radius: 5px;
 }
 
@@ -31,6 +31,7 @@
 
 .info__show {
   color: var(--txt-secondary);
+  display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
