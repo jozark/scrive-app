@@ -5,6 +5,10 @@
   overflow: auto;
 }
 
+.header {
+  padding-bottom: 1.5rem;
+}
+
 .cardWrapper {
   display: grid;
   gap: 1.25rem;
