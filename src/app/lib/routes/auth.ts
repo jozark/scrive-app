@@ -70,7 +70,7 @@ router.get('/callback', async (request, response) => {
   response.cookie('token', body.access_token, {
     maxAge: (body.expires_in - 60) * 1000,
   });
-  response.redirect('/');
+  response.redirect('/spotify');
 });
 
 router.get('/token', (request, response) => {
