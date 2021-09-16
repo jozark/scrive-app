@@ -8,19 +8,23 @@ import { searchEpisode } from '../models/episode';
 const router = Router();
 
 router.get('/search', async (req, res) => {
-  const query = 'Elon%20Musk';
+  const { query } = req.query;
   const token = req.cookies.token;
 
   if (!query) {
     res.status(400).json({ msg: 'Query is required' });
     return;
   } else if (typeof query !== 'string') {
-    res.status(400).json({ message: 'Query must be a string' });
+    res.status(400).json({ msg: 'Query must be a string' });
     return;
   }
-
-  const episodes = await searchEpisode(query, token);
-  res.send(episodes);
+  try {
+    const episodes = await searchEpisode(query, token);
+    res.send(episodes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: err });
+  }
 });
 
 router.get('/:id', async (req, res) => {

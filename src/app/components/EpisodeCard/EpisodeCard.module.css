@@ -23,10 +23,17 @@
   font-size: 1.125rem;
   font-weight: bold;
   padding-bottom: 0.125rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .info__show {
   color: var(--txt-secondary);
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .info__icons {

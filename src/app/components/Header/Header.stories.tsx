@@ -12,11 +12,19 @@ export default {
 };
 
 export const optionsHeader = (): JSX.Element => (
-  <Header type="options">Aristotle Pt.2</Header>
+  <Header type="options" onBackClick={() => console.log('click')}>
+    Aristotle Pt.2
+  </Header>
 );
 
 export const noOptionsHeader = (): JSX.Element => (
-  <Header type="noOptions">Aristotle Pt.3</Header>
+  <Header type="default" onBackClick={() => console.log('click')}>
+    Aristotle Pt.3
+  </Header>
 );
 
-export const home = (): JSX.Element => <Header type="home">Scrive</Header>;
+export const home = (): JSX.Element => (
+  <Header type="home" onBackClick={() => console.log('click')}>
+    Scrive
+  </Header>
+);

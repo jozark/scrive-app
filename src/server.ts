@@ -4,8 +4,8 @@ dotenv.config();
 import express from 'express';
 import cookieParser from 'cookie-parser';
 
-import auth from './app/lib/routes/auth';
-import episode from './app/lib/routes/episode';
+import auth from './lib/routes/auth';
+import episode from './lib/routes/episode';
 
 const app = express();
 const port = process.env.PORT || 3001;

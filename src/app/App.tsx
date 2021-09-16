@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import LoginButton from './components/LoginButton/LoginButton';
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Spotify from './pages/Spotify/Spotify';
 
 function App(): JSX.Element {
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    async function getToken(): Promise<void> {
-      const response = await fetch('/api/auth/token');
-      const data = await response.json();
-      setToken(data.token);
-    }
-
-    getToken();
-  }, []);
-
   return (
     <BrowserRouter>
       <Switch>
-        <Route></Route>
+        <Route path="/spotify">
+          <Spotify />
+        </Route>
+        <Route path="/">
+          <h1>Hello</h1>
+        </Route>
       </Switch>
-      {token ? <p>SearchBar</p> : <LoginButton />}
     </BrowserRouter>
   );
 }

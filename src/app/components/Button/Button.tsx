@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 
 type ButtonProps = {
   type: 'circle' | 'circleWhite' | 'icon' | 'squareSmall' | 'squareBig';
-  onButtonClick: () => void;
+  onButtonClick?: () => void;
   children: React.ReactNode;
   className?: string;
 };

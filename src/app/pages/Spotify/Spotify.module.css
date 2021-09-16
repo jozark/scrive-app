@@ -1,0 +1,16 @@
+.container {
+  background-color: var(--bg-primary);
+  height: 100vh;
+  padding: 1rem 1.5rem;
+  overflow: auto;
+}
+
+.header {
+  padding-bottom: 1.5rem;
+}
+
+.cardWrapper {
+  display: grid;
+  gap: 1.25rem;
+  padding-top: 2rem;
+}
