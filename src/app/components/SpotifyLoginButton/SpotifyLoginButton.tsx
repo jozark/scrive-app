@@ -1,7 +1,6 @@
 import React from 'react';
 import SpotifyLogo from './../assets/spotify-logo';
 import styles from './SpotifyLoginButton.module.css';
-import { Link } from 'react-router-dom';
 
 export type SpotifyLoginButtonProps = {
   children: React.ReactNode;
