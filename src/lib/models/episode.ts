@@ -22,7 +22,7 @@ export async function searchEpisode(
     }
   );
   const episodes: EpisodesFromAPISearch = await response.json();
-  console.log(episodes);
+
   const formattedEpisodes: Promise<Episode[]> = Promise.all(
     episodes.episodes.items.map(async (episode: EpisodeFromAPISearch) => {
       const smallestImage = episode.images.reduce((smallest, image) => {
