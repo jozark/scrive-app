@@ -1,17 +1,16 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Spotify from './pages/Spotify/Spotify';
 
 function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/about">
+        <Route path="/spotify">
           <Spotify />
         </Route>
         <Route path="/">
-          <main>Home</main>
+          <h1>Hello</h1>
         </Route>
       </Switch>
     </BrowserRouter>
