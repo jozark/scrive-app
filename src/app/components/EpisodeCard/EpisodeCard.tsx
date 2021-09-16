@@ -16,7 +16,7 @@ type EpisodeCardProps = {
   time: string;
   notes?: number;
   handleOnClick?: () => void;
-  handleButtonClick: () => void;
+  handleButtonClick?: () => void;
   className?: string;
 };
 
