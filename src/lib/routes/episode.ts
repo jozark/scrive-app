@@ -18,9 +18,13 @@ router.get('/search', async (req, res) => {
     res.status(400).json({ msg: 'Query must be a string' });
     return;
   }
-
-  const episodes = await searchEpisode(query, token);
-  res.send(episodes);
+  try {
+    const episodes = await searchEpisode(query, token);
+    res.send(episodes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: err });
+  }
 });
 
 router.get('/:id', async (req, res) => {
