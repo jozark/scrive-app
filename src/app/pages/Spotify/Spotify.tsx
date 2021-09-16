@@ -7,6 +7,7 @@ import SpotifyLoginButton from '../../components/SpotifyLoginButton/SpotifyLogin
 import { useHistory } from 'react-router';
 import useDebounce from '../../hooks/useDebounce';
 import useSearchEpisodes from '../../hooks/useSearchEpisodes';
+import { msTimeFormat } from '../../utils/utils';
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
@@ -78,7 +79,7 @@ export default function Spotify(): JSX.Element {
                     image={data.image}
                     title={data.title}
                     show={data.show}
-                    time={data.duration.toString()}
+                    time={msTimeFormat(data.duration).toString()}
                   />
                 ))}
             </div>
