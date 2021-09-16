@@ -7,12 +7,14 @@ import styles from './Header.module.css';
 type HeaderProps = {
   type: 'options' | 'default' | 'home';
   children: React.ReactNode;
+  onBackClick: () => void;
   className?: string;
 };
 
 export default function Header({
   children,
   type = 'default',
+  onBackClick,
   className,
 }: HeaderProps): JSX.Element {
   if (type === 'home') {
@@ -24,7 +26,7 @@ export default function Header({
   } else {
     return (
       <header className={`${styles.header} ${className}`}>
-        <BackIcon width={24} />
+        <BackIcon width={24} onClick={onBackClick} />
         <Typography type="h2" className={styles.header__text}>
           {children}
         </Typography>
