@@ -5,61 +5,13 @@ import Header from '../../components/Header/Header';
 import styles from './Spotify.module.css';
 import SpotifyLoginButton from '../../components/SpotifyLoginButton/SpotifyLoginButton';
 import { useHistory } from 'react-router';
-
-const mockData = [
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-  {
-    image: 'https://i.scdn.co/image/07fa4012411c0244688d53c6b68aea10184cdf80',
-    show: 'Philosophize This!',
-    title: 'Episode #103 Sarte and Camus pt. 4',
-    duration: '1:25h',
-  },
-];
+import useDebounce from '../../hooks/useDebounce';
+import useSearchEpisodes from '../../hooks/useSearchEpisodes';
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
+  const debouncedValue = useDebounce<string>(searchValue, 500);
 
   const [token, setToken] = useState('');
 
@@ -73,44 +25,64 @@ export default function Spotify(): JSX.Element {
     getToken();
   }, []);
 
-  const handleBackClick = () => {
+  const { episodes, isLoading } = useSearchEpisodes(debouncedValue);
+
+  function handleBackClick() {
     history.push('/');
-  };
+  }
+
+  function handleAddClick() {
+    console.log('push to local storage');
+  }
+
+  function handleSearch(event: React.FormEvent<Element>) {
+    event.preventDefault();
+  }
 
   return (
     <main className={styles.container}>
+      <Header
+        className={styles.header}
+        type="default"
+        onBackClick={handleBackClick}
+      >
+        Import
+      </Header>
       {!token ? (
-        <SpotifyLoginButton url="/api/auth/login">
-          Connect with Spotify
-        </SpotifyLoginButton>
+        <>
+          <SpotifyLoginButton
+            className={styles.loginButton}
+            url="/api/auth/login"
+          >
+            Connect with Spotify
+          </SpotifyLoginButton>
+        </>
       ) : (
         <>
-          <Header
-            className={styles.header}
-            type="default"
-            onBackClick={handleBackClick}
-          >
-            Import
-          </Header>
           <SearchBar
             searchValue={searchValue}
             setSearchValue={setSearchValue}
-            handleSearch={() => console.log('search in progress')}
+            handleSearch={(event) => handleSearch(event)}
           />
-          <div className={styles.cardWrapper}>
-            {mockData !== null &&
-              mockData.map((data, i) => (
-                <EpisodeCard
-                  handleButtonClick={() => console.log('click')}
-                  key={i}
-                  type="import"
-                  image={data.image}
-                  title={data.title}
-                  show={data.show}
-                  time={data.duration}
-                />
-              ))}
-          </div>
+          {isLoading ? (
+            <p>is loading</p>
+          ) : (
+            <div className={styles.cardWrapper}>
+              {episodes &&
+                episodes[0]?.title &&
+                episodes.map((data, i) => (
+                  <EpisodeCard
+                    handleButtonClick={handleAddClick}
+                    key={i}
+                    type="import"
+                    image={data.image}
+                    title={data.title}
+                    show={data.show}
+                    time={data.duration.toString()}
+                  />
+                ))}
+            </div>
+          )}
         </>
       )}
     </main>
