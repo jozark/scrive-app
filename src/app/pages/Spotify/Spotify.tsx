@@ -4,6 +4,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import Header from '../../components/Header/Header';
 import styles from './Spotify.module.css';
 import SpotifyLoginButton from '../../components/SpotifyLoginButton/SpotifyLoginButton';
+import { useHistory } from 'react-router';
 
 const mockData = [
   {
@@ -57,6 +58,7 @@ const mockData = [
 ];
 
 export default function Spotify(): JSX.Element {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
 
   const [token, setToken] = useState('');
@@ -70,6 +72,11 @@ export default function Spotify(): JSX.Element {
 
     getToken();
   }, []);
+
+  const handleBackClick = () => {
+    history.push('/');
+  };
+
   return (
     <main className={styles.container}>
       {!token ? (
@@ -78,7 +85,11 @@ export default function Spotify(): JSX.Element {
         </SpotifyLoginButton>
       ) : (
         <>
-          <Header className={styles.header} type="default">
+          <Header
+            className={styles.header}
+            type="default"
+            onBackClick={handleBackClick}
+          >
             Import
           </Header>
           <SearchBar
