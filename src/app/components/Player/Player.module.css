@@ -1,0 +1,5 @@
+.container {
+  background-color: var(--bg-primary);
+  height: 100vh;
+  padding: 1rem 1.5rem;
+}
