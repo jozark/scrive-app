@@ -23,9 +23,7 @@ const randomString = (length: number) => {
 
 router.get('/login', (_request, response) => {
   const scope =
-    'streaming \
-              user-read-email \
-              user-read-private';
+    'streaming app-remote-control user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing user-library-read user-library-modify';
 
   const state = randomString(16);
 
