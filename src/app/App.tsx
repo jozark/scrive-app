@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Spotify from './pages/Spotify/Spotify';
-import TestPlayer from './components/TestPlayer/TestPlayer';
+import Player from './components/Player/Player';
 
 function App(): JSX.Element {
   return (
@@ -11,7 +11,7 @@ function App(): JSX.Element {
           <Spotify />
         </Route>
         <Route path="/player">
-          <TestPlayer />
+          <Player />
         </Route>
         <Route path="/">
           <h1>Hello</h1>
