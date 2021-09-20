@@ -22,6 +22,11 @@
   gap: 1rem;
 }
 
+.tabs__typo > a {
+  color: white;
+  text-decoration: none;
+}
+
 .cardWrapper {
   display: grid;
   gap: 1.25rem;
