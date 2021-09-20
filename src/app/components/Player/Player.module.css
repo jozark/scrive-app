@@ -1,5 +1,29 @@
 .container {
+  display: grid;
   background-color: var(--bg-primary);
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  width: 100%;
   height: 100vh;
   padding: 1rem 1.5rem;
+}
+
+.header {
+  align-self: flex-start;
+  width: 100%;
+  padding-bottom: 4rem;
+}
+
+.playback__cover {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.playback__info {
+  text-align: center;
+}
+
+.playControls {
+  padding-bottom: 2rem;
 }
