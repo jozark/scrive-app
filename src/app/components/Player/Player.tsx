@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
 import Typography from '../Typography/Typography';
 import styles from './Player.module.css';
 
 export default function TestPlayer(): JSX.Element {
+  const history = useHistory();
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
   const [isPaused, setPaused] = useState(false);
   const [isActive, setActive] = useState(false);
@@ -103,13 +105,16 @@ export default function TestPlayer(): JSX.Element {
   //     method: 'PUT',
   //   });
   // }
+  function handleBackClick() {
+    history.push('/');
+  }
 
   return (
     <div className={styles.container}>
       <Header
         className={styles.header}
         type="options"
-        onBackClick={() => console.log('back')}
+        onBackClick={handleBackClick}
       >
         {current_track.name}
       </Header>
@@ -137,7 +142,6 @@ export default function TestPlayer(): JSX.Element {
         togglePlay={() => player?.togglePlay()}
         className={styles.playControls}
       />
-      {/* <button onClick={handlePlayEpisode}>PLAY THIS SONG</button> */}
     </div>
   );
 }
