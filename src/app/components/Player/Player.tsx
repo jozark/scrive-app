@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
+import Typography from '../Typography/Typography';
 import styles from './Player.module.css';
 
 export default function TestPlayer(): JSX.Element {
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
-  const [is_paused, setPaused] = useState(false);
-  const [is_active, setActive] = useState(false);
+  const [isPaused, setPaused] = useState(false);
+  const [isActive, setActive] = useState(false);
   const [deviceId, setDeviceId] = useState('');
 
   // Auth
@@ -119,16 +120,18 @@ export default function TestPlayer(): JSX.Element {
           alt=""
         />
         <div className={styles.playback__info}>
-          <div className={styles.info__name}>{current_track.name}</div>
+          <Typography type="h2" className={styles.info__name}>
+            {current_track.name}
+          </Typography>
 
-          <div className={styles.info__artist}>
+          <Typography type="subHeading" className={styles.info__artist}>
             {current_track.artists[0].name}
-          </div>
+          </Typography>
         </div>
       </div>
       <PlayControls
         type="squareBig"
-        isPlay={true}
+        isPlay={!isPaused}
         onBackwardSkip={() => player?.previousTrack()}
         onForwardSkip={() => player?.nextTrack()}
         togglePlay={() => player?.togglePlay()}
