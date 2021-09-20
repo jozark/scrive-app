@@ -30,17 +30,21 @@ router.get('/search', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const token = req.cookies.token;
-
-  const response = await fetch(`https://api.spotify.com/v1/episodes/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const episodeData = await response.json();
-  res.send(episodeData);
+  try {
+    const response = await fetch(`https://api.spotify.com/v1/episodes/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const episodeData = await response.json();
+    res.send(episodeData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: err });
+  }
 });
 
 export default router;
