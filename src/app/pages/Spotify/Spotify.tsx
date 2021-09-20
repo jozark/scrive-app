@@ -7,12 +7,14 @@ import SpotifyLoginButton from '../../components/SpotifyLoginButton/SpotifyLogin
 import { useHistory } from 'react-router';
 import useDebounce from '../../hooks/useDebounce';
 import useSearchEpisodes from '../../hooks/useSearchEpisodes';
+import useEpisodes from '../../hooks/useEpisodes';
+import type { Episode } from '../../../lib/types';
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const debouncedValue = useDebounce<string>(searchValue, 500);
-
+  const { addEpisodeData } = useEpisodes();
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -31,8 +33,9 @@ export default function Spotify(): JSX.Element {
     history.push('/');
   }
 
-  function handleAddClick() {
-    console.log('push to local storage');
+  function handleAddClick(episode: Episode) {
+    addEpisodeData(episode);
+    console.log();
   }
 
   function handleSearch(event: React.FormEvent<Element>) {
@@ -72,7 +75,7 @@ export default function Spotify(): JSX.Element {
                 episodes[0]?.title &&
                 episodes.map((data, i) => (
                   <EpisodeCard
-                    handleButtonClick={handleAddClick}
+                    handleButtonClick={() => handleAddClick(data)}
                     key={i}
                     type="import"
                     image={data.image}
