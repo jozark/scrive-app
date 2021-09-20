@@ -10,7 +10,7 @@
 
 .card__image {
   object-fit: contain;
-  max-width: 4.5rem;
+  width: 4.5rem;
   border-radius: 5px;
 }
 
@@ -74,4 +74,13 @@
 
 .addButton {
   align-self: center;
+}
+
+.more {
+  display: flex;
+  padding-left: 0.25rem;
+  background-color: transparent;
+  justify-self: end;
+  align-items: center;
+  height: 15px;
 }
