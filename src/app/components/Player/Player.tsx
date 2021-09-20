@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
+import PlayControls from '../PlayControls/PlayControls';
 import styles from './Player.module.css';
 
 export default function TestPlayer(): JSX.Element {
@@ -96,15 +97,19 @@ export default function TestPlayer(): JSX.Element {
     });
   };
 
-  function handlePlayEpisode(): void {
-    fetch(`/api/player/${deviceId}/spotify:episode:512ojhOuo1ktJprKbVcKyQ`, {
-      method: 'PUT',
-    });
-  }
+  // function handlePlayEpisode(): void {
+  //   fetch(`/api/player/${deviceId}/spotify:episode:512ojhOuo1ktJprKbVcKyQ`, {
+  //     method: 'PUT',
+  //   });
+  // }
 
   return (
     <div className={styles.container}>
-      <Header type="options" onBackClick={() => console.log('back')}>
+      <Header
+        className={styles.header}
+        type="options"
+        onBackClick={() => console.log('back')}
+      >
         Title of the Song
       </Header>
       <div className={styles.playback}>
@@ -113,7 +118,6 @@ export default function TestPlayer(): JSX.Element {
           className={styles.playback__cover}
           alt=""
         />
-
         <div className={styles.playback__info}>
           <div className={styles.info__name}>{current_track.name}</div>
 
@@ -122,34 +126,15 @@ export default function TestPlayer(): JSX.Element {
           </div>
         </div>
       </div>
-      <button
-        className={styles.controls__previous}
-        onClick={() => {
-          player?.previousTrack();
-        }}
-      >
-        &lt;&lt;
-      </button>
-
-      <button
-        className={styles.control__play}
-        onClick={() => {
-          player?.togglePlay();
-        }}
-      >
-        {is_paused ? 'PLAY' : 'PAUSE'}
-      </button>
-
-      <button
-        className={styles.control__next}
-        onClick={() => {
-          player?.nextTrack();
-        }}
-      >
-        &gt;&gt;
-      </button>
-
-      <button onClick={handlePlayEpisode}>PLAY THIS SONG</button>
+      <PlayControls
+        type="squareBig"
+        isPlay={true}
+        onBackwardSkip={() => player?.previousTrack()}
+        onForwardSkip={() => player?.nextTrack()}
+        togglePlay={() => player?.togglePlay()}
+        className={styles.playControls}
+      />
+      {/* <button onClick={handlePlayEpisode}>PLAY THIS SONG</button> */}
     </div>
   );
 }
