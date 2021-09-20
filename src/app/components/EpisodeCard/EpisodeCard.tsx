@@ -7,6 +7,7 @@ import Button from '../Button/Button';
 import Fallback from '../assets/fallbackImage.png';
 import styles from './EpisodeCard.module.css';
 import Typography from '../Typography/Typography';
+import MoreIcon from '../assets/MoreIcon';
 
 type EpisodeCardProps = {
   type: 'note' | 'import';
@@ -66,7 +67,9 @@ export default function EpisodeCard({
                   <StarIcon width={11} height={11} />
                 </div>
               </div>
-              <p className={styles.share}>share</p>
+              <button className={styles.more}>
+                <MoreIcon width={10} height={10} fill="#908fdc" />
+              </button>
             </>
           ) : (
             <div className={styles.icons__timeWrapper}>

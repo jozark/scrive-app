@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home/Home';
 import Spotify from './pages/Spotify/Spotify';
 
 function App(): JSX.Element {
@@ -10,7 +11,7 @@ function App(): JSX.Element {
           <Spotify />
         </Route>
         <Route path="/">
-          <h1>Hello</h1>
+          <Home />
         </Route>
       </Switch>
     </BrowserRouter>

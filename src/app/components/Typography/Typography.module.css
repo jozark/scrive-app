@@ -1,7 +1,7 @@
 .headingOne {
   font-family: var(--font-headingOne);
   font-weight: 900;
-  font-size: 1.75;
+  font-size: 1.75rem;
 }
 
 .headingTwo {
