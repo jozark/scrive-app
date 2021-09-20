@@ -38,6 +38,7 @@ export async function searchEpisode(
         show: showName,
         image: smallestImage.url,
         duration: episode.duration_ms,
+        uri: episode.uri,
       };
     })
   );
