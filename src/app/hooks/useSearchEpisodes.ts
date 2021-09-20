@@ -3,7 +3,6 @@ import useFetch from './useFetch';
 
 export default function useSearchEpisodes(query: string): {
   episodes: Episode[] | null;
-  errorMsg: string | null;
   isLoading: boolean;
 } {
   const result = useFetch<Episode[]>(
@@ -12,7 +11,6 @@ export default function useSearchEpisodes(query: string): {
 
   return {
     episodes: result.data,
-    errorMsg: result.errorMessage,
     isLoading: result.isLoading,
   };
 }
