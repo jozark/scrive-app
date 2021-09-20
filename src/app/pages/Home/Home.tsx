@@ -20,8 +20,12 @@ export default function Home(): JSX.Element {
       </Header>
       <div className={styles.tabs}>
         <div className={styles.tabs__typo}>
-          <Typography type="h2">Recent</Typography>
-          <Typography type="h2">Favorites</Typography>
+          <Link to="/">
+            <Typography type="h2">Recent</Typography>
+          </Link>
+          <Link to="/">
+            <Typography type="h2">Favorites</Typography>
+          </Link>
         </div>
         <Link to="/spotify">
           <Button type="squareSmall">
