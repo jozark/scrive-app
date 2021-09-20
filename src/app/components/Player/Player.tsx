@@ -111,7 +111,7 @@ export default function TestPlayer(): JSX.Element {
         type="options"
         onBackClick={() => console.log('back')}
       >
-        Title of the Song
+        {current_track.name}
       </Header>
       <div className={styles.playback}>
         <img
