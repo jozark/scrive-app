@@ -40,9 +40,9 @@ export default function Home(): JSX.Element {
       ></SearchBar>
       <div className={styles.cardWrapper}>
         {episodeData &&
-          episodeData.map((data, i) => (
+          episodeData.map((data) => (
             <EpisodeCard
-              key={i}
+              key={data.id}
               type="note"
               image={data.image}
               title={data.title}

@@ -73,10 +73,10 @@ export default function Spotify(): JSX.Element {
             <div className={styles.cardWrapper}>
               {episodes &&
                 episodes[0]?.title &&
-                episodes.map((data, i) => (
+                episodes.map((data) => (
                   <EpisodeCard
                     handleButtonClick={() => handleAddClick(data)}
-                    key={i}
+                    key={data.id}
                     type="import"
                     image={data.image}
                     title={data.title}
