@@ -7,7 +7,7 @@ import styles from './Header.module.css';
 type HeaderProps = {
   type: 'options' | 'default' | 'home';
   children: React.ReactNode;
-  onBackClick: () => void;
+  onBackClick?: () => void;
   className?: string;
 };
 

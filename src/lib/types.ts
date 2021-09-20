@@ -69,4 +69,5 @@ export type Episode = {
   show: string;
   image: string;
   duration: number;
+  uri: string;
 };

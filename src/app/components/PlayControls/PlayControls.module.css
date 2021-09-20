@@ -1,0 +1,12 @@
+.controls {
+  display: flex;
+  align-items: center;
+}
+
+.type--squareBig {
+  gap: 1.5rem;
+}
+
+.type--squareSmall {
+  gap: 1rem;
+}

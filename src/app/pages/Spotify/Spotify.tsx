@@ -8,12 +8,14 @@ import { useHistory } from 'react-router';
 import useDebounce from '../../hooks/useDebounce';
 import useSearchEpisodes from '../../hooks/useSearchEpisodes';
 import { msTimeFormat } from '../../utils/utils';
+import useEpisodes from '../../hooks/useEpisodes';
+import type { Episode } from '../../../lib/types';
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const debouncedValue = useDebounce<string>(searchValue, 500);
-
+  const { addEpisodeData } = useEpisodes();
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -32,8 +34,9 @@ export default function Spotify(): JSX.Element {
     history.push('/');
   }
 
-  function handleAddClick() {
-    console.log('push to local storage');
+  function handleAddClick(episode: Episode) {
+    addEpisodeData(episode);
+    history.push('/');
   }
 
   function handleSearch(event: React.FormEvent<Element>) {
@@ -71,10 +74,10 @@ export default function Spotify(): JSX.Element {
             <div className={styles.cardWrapper}>
               {episodes &&
                 episodes[0]?.title &&
-                episodes.map((data, i) => (
+                episodes.map((data) => (
                   <EpisodeCard
-                    handleButtonClick={handleAddClick}
-                    key={i}
+                    handleButtonClick={() => handleAddClick(data)}
+                    key={data.id}
                     type="import"
                     image={data.image}
                     title={data.title}
