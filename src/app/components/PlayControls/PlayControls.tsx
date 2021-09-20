@@ -53,9 +53,9 @@ export default function PlayControls({
       </Button>
       <Button type={type} onButtonClick={togglePlay}>
         {isPlay ? (
-          <PlayIcon {...playSizeMap[type]} fill="#fff" />
-        ) : (
           <PauseIcon {...playSizeMap[type]} fill="#fff" />
+        ) : (
+          <PlayIcon {...playSizeMap[type]} fill="#fff" />
         )}
       </Button>
       <Button type="icon" onButtonClick={onForwardSkip}>
