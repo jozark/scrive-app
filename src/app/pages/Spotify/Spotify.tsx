@@ -35,7 +35,7 @@ export default function Spotify(): JSX.Element {
 
   function handleAddClick(episode: Episode) {
     addEpisodeData(episode);
-    console.log();
+    history.push('/');
   }
 
   function handleSearch(event: React.FormEvent<Element>) {
