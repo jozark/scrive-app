@@ -1,0 +1,39 @@
+.card {
+  width: 100%;
+  border-bottom: 1px #484848 solid;
+  padding-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.timestamp {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+}
+
+.timestamp__text {
+  font-size: 0.75rem;
+  color: var(--txt-secondary);
+}
+
+.content {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--txt-secondary);
+}
+
+.addButton {
+  align-self: center;
+}
