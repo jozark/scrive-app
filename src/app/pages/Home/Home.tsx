@@ -7,6 +7,7 @@ import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Typography from '../../components/Typography/Typography';
 import useEpisodes from '../../hooks/useEpisodes';
+import { msTimeFormat } from '../../utils/utils';
 import styles from './Home.module.css';
 
 export default function Home(): JSX.Element {
@@ -47,7 +48,7 @@ export default function Home(): JSX.Element {
               image={data.image}
               title={data.title}
               show={data.show}
-              time={data.duration.toString()}
+              time={msTimeFormat(data.duration).toString()}
             />
           ))}
       </div>
