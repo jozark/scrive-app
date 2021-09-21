@@ -1,0 +1,26 @@
+.container {
+  height: 100vh;
+  background-color: var(--bg-primary);
+  display: grid;
+}
+
+.drawer {
+  align-self: end;
+  background-color: lightcoral;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.type--true {
+  height: 80vh;
+}
+
+.type--false {
+  height: 2rem;
+}
+
+.header {
+  text-align: center;
+  border-bottom: 1px black solid;
+  height: 2rem;
+}
