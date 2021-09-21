@@ -23,7 +23,9 @@ function NoteCard({
   return (
     <div className={styles.card} onClick={handleOnCardClick}>
       <article>
-        <Typography type="h3">{title}</Typography>
+        <Typography type="h3" className={styles.title}>
+          {title}
+        </Typography>
         <div className={styles.timestamp}>
           <TimeIcon width={12} height={12} />
           <p className={styles.timestamp__text}>{timestampBegin}</p>
