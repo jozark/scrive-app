@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
 import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
@@ -11,8 +11,13 @@ import { msTimeFormat } from '../../utils/utils';
 import styles from './Home.module.css';
 
 export default function Home(): JSX.Element {
+  const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const { episodeData } = useEpisodes();
+
+  function handleOnCardClick(id: string) {
+    history.push(`/player/${id}`);
+  }
 
   return (
     <main className={styles.container}>
@@ -44,6 +49,7 @@ export default function Home(): JSX.Element {
           episodeData.map((data) => (
             <EpisodeCard
               key={data.id}
+              handleOnClick={() => handleOnCardClick(data.id)}
               type="note"
               image={data.image}
               title={data.title}
