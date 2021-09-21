@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
 import Typography from '../Typography/Typography';
 import styles from './Player.module.css';
+
+const track = {
+  name: '',
+  album: {
+    images: [{ url: '' }],
+  },
+  artists: [{ name: '' }],
+};
 
 export default function TestPlayer(): JSX.Element {
   const history = useHistory();
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
   const [isPaused, setPaused] = useState(false);
   const [isActive, setActive] = useState(false);
-  const [deviceId, setDeviceId] = useState('');
+  const [currentTrack, setCurrentTrack] = useState(track);
+  const [token, setToken] = useState('');
+  const [playbackProgress, setPlaybackProgress] = useState(0);
+
+  const { id } = useParams();
 
   // Auth
-  const [token, setToken] = useState('');
-
   useEffect(() => {
     async function getToken(): Promise<void> {
       const response = await fetch('/api/auth/token');
@@ -24,15 +34,6 @@ export default function TestPlayer(): JSX.Element {
 
     getToken();
   }, []);
-  const track = {
-    name: '',
-    album: {
-      images: [{ url: '' }],
-    },
-    artists: [{ name: '' }],
-  };
-
-  const [current_track, setTrack] = useState(track);
 
   //Initialize Player
 
@@ -54,7 +55,7 @@ export default function TestPlayer(): JSX.Element {
       getOAuthToken: (cb) => {
         cb(accessToken);
       },
-      volume: 0.2,
+      volume: 0.5,
     });
 
     //Error Handling
@@ -76,12 +77,11 @@ export default function TestPlayer(): JSX.Element {
 
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
-      setDeviceId(device_id);
+      playEpisode(device_id);
     });
 
     player.addListener('not_ready', ({ device_id }) => {
       console.log('Device ID has gone offline', device_id);
-      setDeviceId(device_id);
     });
 
     player.connect();
@@ -91,57 +91,73 @@ export default function TestPlayer(): JSX.Element {
         return;
       }
 
-      setTrack(state.track_window.current_track);
-      setPaused(state.paused);
+      const { duration, position, paused, track_window } = state;
 
+      setCurrentTrack(track_window.current_track);
+      setPaused(paused);
+      setPlaybackProgress(position / duration);
       player.getCurrentState().then((state) => {
         !state ? setActive(false) : setActive(true);
       });
     });
   };
 
-  // function handlePlayEpisode(): void {
-  //   fetch(`/api/player/${deviceId}/spotify:episode:512ojhOuo1ktJprKbVcKyQ`, {
-  //     method: 'PUT',
-  //   });
-  // }
-  function handleBackClick() {
-    history.push('/');
+  async function playEpisode(device_id: string): Promise<void> {
+    await fetch(`/api/player/${device_id}/spotify:episode:${id}`, {
+      method: 'PUT',
+    });
   }
 
-  return (
-    <div className={styles.container}>
-      <Header
-        className={styles.header}
-        type="options"
-        onBackClick={handleBackClick}
-      >
-        {current_track.name}
-      </Header>
-      <div className={styles.playback}>
-        <img
-          src={current_track.album.images[0].url}
-          className={styles.playback__cover}
-          alt=""
-        />
-        <div className={styles.playback__info}>
-          <Typography type="h2" className={styles.info__name}>
-            {current_track.name}
-          </Typography>
+  function handleBackClick() {
+    history.push('/');
+    // setActive(false);
+    // player?.disconnect;
+  }
 
-          <Typography type="subHeading" className={styles.info__artist}>
-            {current_track.artists[0].name}
-          </Typography>
-        </div>
+  if (!isActive) {
+    return (
+      <div className={styles.container}>
+        <p>Instance not active</p>
       </div>
-      <PlayControls
-        type="squareBig"
-        isPlay={!isPaused}
-        onBackwardSkip={() => player?.previousTrack()}
-        onForwardSkip={() => player?.nextTrack()}
-        togglePlay={() => player?.togglePlay()}
-        className={styles.playControls}
-      />
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className={styles.container}>
+        <Header
+          className={styles.header}
+          type="options"
+          onBackClick={() => handleBackClick()}
+        >
+          {currentTrack.name}
+        </Header>
+        <div className={styles.playback}>
+          <img
+            src={
+              currentTrack.album.images[currentTrack.album.images.length - 1]
+                .url
+            }
+            className={styles.playback__cover}
+            alt=""
+          />
+          <div className={styles.playback__info}>
+            <Typography type="h2" className={styles.info__name}>
+              {currentTrack.name}
+            </Typography>
+
+            <Typography type="subHeading" className={styles.info__artist}>
+              {currentTrack.artists[0].name}
+            </Typography>
+          </div>
+        </div>
+        <PlayControls
+          type="squareBig"
+          isPlay={!isPaused}
+          onBackwardSkip={() => player?.previousTrack()}
+          onForwardSkip={() => player?.nextTrack()}
+          togglePlay={() => player?.togglePlay()}
+          className={styles.playControls}
+        />
+      </div>
+    );
+  }
 }
