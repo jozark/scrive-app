@@ -10,11 +10,14 @@ import useEpisodes from '../../hooks/useEpisodes';
 import { msTimeFormat } from '../../utils/utils';
 import styles from './Home.module.css';
 
-export default function Home(): JSX.Element {
+type HomeProps = {
+  token: string;
+};
+
+export default function Home({ token }: HomeProps): JSX.Element {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const { episodeData } = useEpisodes();
-
   function handleOnCardClick(id: string) {
     history.push(`/player/${id}`);
   }
@@ -25,15 +28,32 @@ export default function Home(): JSX.Element {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: `Bearer BQCXfd6JgCAxpGuft3K1n_vqBfkXt9Hh61E4lpfhh97WVZc8OBzpGlaZZ6MCCeA12Eg28E3pXKRwZ2ZxCE1GscUiO2ZyiiFm8JHYd2pAgfxCdVHNqtkbQvE5Nn6M8y6gWv8flREWOWqJNk71sjkOgFLLO-JLVPSKSZcemzAc08BpLCrJum3Lrvhlt_bAULvt`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    const episodeData = await response.json();
-    console.log(episodeData);
+    const playerData = await response.json();
+    console.log(playerData);
+  };
+
+  const devicesInfo = async () => {
+    const response = await fetch(
+      `https://api.spotify.com/v1/me/player/devices`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const devicesData = await response.json();
+    // console.log(devicesData);
   };
 
   useEffect(() => {
     playerInfo();
+    devicesInfo();
   }, []);
 
   return (
