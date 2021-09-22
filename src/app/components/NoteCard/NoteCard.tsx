@@ -21,8 +21,8 @@ function NoteCard({
   handleOnButtonClick,
 }: NoteCardProps): JSX.Element {
   return (
-    <div className={styles.card} onClick={handleOnCardClick}>
-      <article>
+    <div className={styles.card}>
+      <article onClick={handleOnCardClick}>
         <Typography type="h3" className={styles.title}>
           {title}
         </Typography>
