@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Spotify from './pages/Spotify/Spotify';
@@ -6,6 +6,17 @@ import Player from './components/Player/Player';
 // import { AppProvider } from './context/PlayerContext';
 
 function App(): JSX.Element {
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    async function getToken(): Promise<void> {
+      const response = await fetch('/api/auth/token');
+      const data = await response.json();
+      setToken(data.token);
+    }
+
+    getToken();
+  }, []);
   return (
     // <AppProvider>
     <BrowserRouter>
@@ -14,10 +25,10 @@ function App(): JSX.Element {
           <Spotify />
         </Route>
         <Route path="/player/:id">
-          <Player />
+          <Player token={token} />
         </Route>
         <Route path="/">
-          <Home />
+          <Home token={token} />
         </Route>
       </Switch>
     </BrowserRouter>
