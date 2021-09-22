@@ -2,25 +2,37 @@
   height: 100vh;
   background-color: var(--bg-primary);
   display: grid;
+  overflow: hidden;
+  justify-items: center;
 }
 
 .drawer {
+  height: 5vh;
+  width: 100%;
   align-self: end;
-  background-color: lightcoral;
+  background-color: var(--bg-secondary);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.type--true {
-  height: 80vh;
-}
-
-.type--false {
-  height: 2rem;
+.header--true {
+  border-bottom: 1px #323232 solid;
 }
 
 .header {
+  height: 5vh;
   text-align: center;
-  border-bottom: 1px black solid;
-  height: 2rem;
+}
+
+.noteWrapper {
+  display: grid;
+  padding: 0.75rem 1rem;
+  padding-bottom: 2rem;
+  height: 100%;
+  overflow-y: scroll;
+  gap: 0.75rem;
+}
+
+.noteWrapper::-webkit-scrollbar {
+  display: none;
 }
