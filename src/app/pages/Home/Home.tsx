@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
@@ -18,6 +18,23 @@ export default function Home(): JSX.Element {
   function handleOnCardClick(id: string) {
     history.push(`/player/${id}`);
   }
+
+  const playerInfo = async () => {
+    const response = await fetch(`https://api.spotify.com/v1/me/player`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer BQCXfd6JgCAxpGuft3K1n_vqBfkXt9Hh61E4lpfhh97WVZc8OBzpGlaZZ6MCCeA12Eg28E3pXKRwZ2ZxCE1GscUiO2ZyiiFm8JHYd2pAgfxCdVHNqtkbQvE5Nn6M8y6gWv8flREWOWqJNk71sjkOgFLLO-JLVPSKSZcemzAc08BpLCrJum3Lrvhlt_bAULvt`,
+      },
+    });
+    const episodeData = await response.json();
+    console.log(episodeData);
+  };
+
+  useEffect(() => {
+    playerInfo();
+  }, []);
 
   return (
     <main className={styles.container}>
