@@ -1,9 +1,10 @@
 .card {
   width: 100%;
-  border-bottom: 1px #484848 solid;
+  border-bottom: 1px #323232 solid;
   padding-bottom: 1rem;
   display: flex;
   gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .title {
