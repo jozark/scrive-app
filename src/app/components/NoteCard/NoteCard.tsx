@@ -16,6 +16,7 @@ type NoteCardProps = {
   handleOnTimestampClick: () => void;
   setTitleValue: (titleValue: string) => void;
   setContentValue: (contentValue: string) => void;
+  handleOnSubmit: (event: React.FormEvent) => void;
 };
 
 function NoteCard({
@@ -28,6 +29,7 @@ function NoteCard({
   handleOnCardClick,
   handleOnButtonClick,
   handleOnTimestampClick,
+  handleOnSubmit,
 }: NoteCardProps): JSX.Element {
   return (
     <>
@@ -52,7 +54,7 @@ function NoteCard({
               <PlayIcon width={12} height={12} fill="#fff" />
             </Button>
           </div>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleOnSubmit}>
             <input
               className={styles.form__title}
               type="text"
