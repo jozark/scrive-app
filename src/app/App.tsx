@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Spotify from './pages/Spotify/Spotify';
-import Player from './components/Player/Player';
 import OverlayPlayer from './components/OverlayPlayer/OverlayPlayer';
 import PlayerContextProvider from './context/PlayerContext';
 import styles from './App.module.css';
@@ -25,9 +24,6 @@ function App(): JSX.Element {
         <Switch>
           <Route path="/spotify">
             <Spotify />
-          </Route>
-          <Route path="/player/:id">
-            <Player token={token} />
           </Route>
           <Route path="/">
             <Home token={token} />
