@@ -13,10 +13,12 @@ export default function OverlayPlayer(): JSX.Element {
         className={styles.cover}
       />
       <div className={styles.text}>
-        <Typography type="p">Aritotle Pt. 2</Typography>
+        <Typography type="p" className={styles.text__head}>
+          Aritotle Pt. 2
+        </Typography>
         <p className={styles.text__sub}>Philosophize This</p>
       </div>
-      <Button type={'squareSmall'}>
+      <Button type={'squareSmall'} className={styles.play}>
         <PlayIcon width={12} height={12} fill="#fff" />
       </Button>
     </div>
