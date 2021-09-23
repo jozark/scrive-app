@@ -1,6 +1,6 @@
 .container {
   background-color: var(--bg-primary);
-  height: 100vh;
+  height: calc(100vh - 60px);
   padding: 1rem 1.5rem;
   overflow: auto;
   -ms-overflow-style: none; /* IE and Edge */
