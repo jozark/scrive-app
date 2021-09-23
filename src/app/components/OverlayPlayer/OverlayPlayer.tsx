@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PauseIcon from '../assets/PauseIcon';
 import PlayIcon from '../assets/PlayIcon';
 import Button from '../Button/Button';
 import Typography from '../Typography/Typography';
 import styles from './OverlayPlayer.module.css';
+import { PlayerContext } from '../../context/PlayerContext';
 
 const track = {
   name: '',
@@ -27,6 +28,8 @@ export default function OverlayPlayer({
   const [isActive, setActive] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(track);
   const [playbackProgress, setPlaybackProgress] = useState(0);
+
+  const { setDeviceID } = useContext(PlayerContext);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -68,7 +71,8 @@ export default function OverlayPlayer({
 
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
-      // playEpisode(device_id);
+      setDeviceID(device_id);
+      console.log(setDeviceID);
     });
 
     player.addListener('not_ready', ({ device_id }) => {
