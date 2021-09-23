@@ -4,12 +4,11 @@ import Home from './pages/Home/Home';
 import Spotify from './pages/Spotify/Spotify';
 import Player from './components/Player/Player';
 import OverlayPlayer from './components/OverlayPlayer/OverlayPlayer';
-import PlayerContextProvider, { PlayerContext } from './context/PlayerContext';
+import PlayerContextProvider from './context/PlayerContext';
 import styles from './App.module.css';
 
 function App(): JSX.Element {
   const [token, setToken] = useState('');
-  const { playerIsActive } = useContext(PlayerContext);
 
   useEffect(() => {
     async function getToken(): Promise<void> {
@@ -35,9 +34,7 @@ function App(): JSX.Element {
           </Route>
         </Switch>
       </BrowserRouter>
-      {playerIsActive && (
-        <OverlayPlayer token={token} className={styles.player} />
-      )}
+      <OverlayPlayer token={token} className={styles.player} />
     </PlayerContextProvider>
   );
 }

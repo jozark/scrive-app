@@ -29,7 +29,7 @@ export default function OverlayPlayer({
   const [currentTrack, setCurrentTrack] = useState(track);
   const [playbackProgress, setPlaybackProgress] = useState(0);
 
-  const { setDeviceID } = useContext(PlayerContext);
+  const { setDeviceID, playerIsActive } = useContext(PlayerContext);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -97,14 +97,9 @@ export default function OverlayPlayer({
     });
   };
 
-  // async function playEpisode(device_id: string): Promise<void> {
-  //   await fetch(
-  //     `/api/player/${device_id}/spotify:episode:0eIW62kUIwcldAA3raqzSq`,
-  //     {
-  //       method: 'PUT',
-  //     }
-  //   );
-  // }
+  if (!playerIsActive) {
+    return <></>;
+  }
 
   return (
     <div className={`${styles.bar} ${className}`}>
