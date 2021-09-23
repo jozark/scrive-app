@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
@@ -6,6 +6,7 @@ import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Typography from '../../components/Typography/Typography';
+import { PlayerContext } from '../../context/PlayerContext';
 import useEpisodes from '../../hooks/useEpisodes';
 import { msTimeFormat } from '../../utils/utils';
 import styles from './Home.module.css';
@@ -18,8 +19,17 @@ export default function Home({ token }: HomeProps): JSX.Element {
   const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const { episodeData } = useEpisodes();
-  function handleOnCardClick(id: string) {
-    history.push(`/player/${id}`);
+  const { deviceID, setPlayerIsActive } = useContext(PlayerContext);
+
+  async function playEpisode(uri: string): Promise<void> {
+    await fetch(`/api/player/${deviceID}/${uri}`, {
+      method: 'PUT',
+    });
+  }
+
+  function handleOnCardClick(uri: string) {
+    setPlayerIsActive(true);
+    playEpisode(uri);
   }
 
   const playerInfo = async () => {
@@ -86,7 +96,7 @@ export default function Home({ token }: HomeProps): JSX.Element {
           episodeData.map((data) => (
             <EpisodeCard
               key={data.id}
-              handleOnClick={() => handleOnCardClick(data.id)}
+              handleOnClick={() => handleOnCardClick(data.uri)}
               type="note"
               image={data.image}
               title={data.title}
