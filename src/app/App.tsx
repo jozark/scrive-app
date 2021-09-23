@@ -3,7 +3,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Spotify from './pages/Spotify/Spotify';
 import Player from './components/Player/Player';
-// import { AppProvider } from './context/PlayerContext';
+import OverlayPlayer from './components/OverlayPlayer/OverlayPlayer';
+import PlayerContextProvider from './context/PlayerContext';
+import styles from './App.module.css';
 
 function App(): JSX.Element {
   const [token, setToken] = useState('');
@@ -18,21 +20,22 @@ function App(): JSX.Element {
     getToken();
   }, []);
   return (
-    // <AppProvider>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/spotify">
-          <Spotify />
-        </Route>
-        <Route path="/player/:id">
-          <Player token={token} />
-        </Route>
-        <Route path="/">
-          <Home token={token} />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-    // </AppProvider>
+    <PlayerContextProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/spotify">
+            <Spotify />
+          </Route>
+          <Route path="/player/:id">
+            <Player token={token} />
+          </Route>
+          <Route path="/">
+            <Home token={token} />
+          </Route>
+        </Switch>
+        <OverlayPlayer token={token} className={styles.player} />
+      </BrowserRouter>
+    </PlayerContextProvider>
   );
 }
 
