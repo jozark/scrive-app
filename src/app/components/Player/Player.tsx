@@ -28,17 +28,6 @@ export default function Player({ token }: PlayerProps): JSX.Element {
 
   // const { id } = useParams();
 
-  // Auth
-  // useEffect(() => {
-  //   async function getToken(): Promise<void> {
-  //     const response = await fetch('/api/auth/token');
-  //     const data = await response.json();
-  //     setToken(data.token);
-  //   }
-
-  //   getToken();
-  // }, []);
-
   // Load Script
   useEffect(() => {
     const script = document.createElement('script');
