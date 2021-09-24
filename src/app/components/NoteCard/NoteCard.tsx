@@ -73,11 +73,13 @@ function NoteCard({
         </div>
       ) : (
         <article className={styles.card}>
-          <section className={styles.card__content} onClick={handleOnCardClick}>
+          <section onClick={handleOnCardClick}>
             <Typography type="h3" className={styles.card__title}>
               {titleValue}
             </Typography>
-            <Typography type="subHeading">{contentValue}</Typography>
+            <Typography type="subHeading" className={styles.card__content}>
+              {contentValue}
+            </Typography>
           </section>
           <div className={styles.card__footer}>
             <div className={styles.timestamp}>
