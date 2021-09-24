@@ -15,7 +15,7 @@ type DrawerProps = {
   children: ReactNode;
 };
 
-function Drawer({
+export default function Drawer({
   isOpen,
   onHandleClick,
   onBackArrowClick,
@@ -69,5 +69,3 @@ function Drawer({
     </div>
   );
 }
-
-export default Drawer;
