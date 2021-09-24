@@ -7,7 +7,7 @@
 }
 
 .drawer {
-  height: 5vh;
+  height: 5%;
   width: 100%;
   align-self: end;
   background-color: var(--bg-secondary);
@@ -20,8 +20,28 @@
 }
 
 .header {
-  height: 5vh;
-  text-align: center;
+  height: 2rem;
+  display: grid;
+  justify-content: space-between;
+  grid-auto-flow: column;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+.header--list {
+  justify-content: space-around;
+}
+
+.header__drag {
+  background-color: var(--txt-secondary);
+  justify-self: center;
+  height: 0.175rem;
+  width: 2.25rem;
+  border-radius: 5px;
+}
+
+.header__icon {
+  align-self: center;
 }
 
 .noteWrapper {
