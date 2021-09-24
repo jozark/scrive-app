@@ -15,8 +15,6 @@ textarea:focus {
   width: 100%;
   border-bottom: 1px var(--accent-secondary) solid;
   padding-bottom: 0.5rem;
-  display: flex;
-  gap: 1rem;
 }
 
 .card__title {

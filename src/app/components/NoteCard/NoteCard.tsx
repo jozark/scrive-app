@@ -72,28 +72,28 @@ function NoteCard({
           </form>
         </div>
       ) : (
-        <div className={styles.card} onClick={handleOnCardClick}>
-          <article>
+        <article className={styles.card}>
+          <section className={styles.card__content} onClick={handleOnCardClick}>
             <Typography type="h3" className={styles.card__title}>
               {titleValue}
             </Typography>
-            <section className={styles.card__content}>{contentValue}</section>
-            <div className={styles.card__footer}>
-              <div className={styles.timestamp}>
-                <TimeIcon width={14} height={14} />
-                <p className={styles.timestamp__text}>{timestampBegin}</p>
-              </div>
-              <Button
-                className={styles.addButton}
-                type="rectangle"
-                onButtonClick={handleOnButtonClick}
-              >
-                <PlayIcon width={10} height={10} fill="#fff" />
-                <p className={styles.addButton__text}>Play</p>
-              </Button>
+            <Typography type="subHeading">{contentValue}</Typography>
+          </section>
+          <div className={styles.card__footer}>
+            <div className={styles.timestamp}>
+              <TimeIcon width={14} height={14} />
+              <p className={styles.timestamp__text}>{timestampBegin}</p>
             </div>
-          </article>
-        </div>
+            <Button
+              className={styles.addButton}
+              type="rectangle"
+              onButtonClick={handleOnButtonClick}
+            >
+              <PlayIcon width={10} height={10} fill="#fff" />
+              <p className={styles.addButton__text}>Play</p>
+            </Button>
+          </div>
+        </article>
       )}
     </>
   );
