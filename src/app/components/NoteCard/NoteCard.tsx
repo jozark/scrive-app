@@ -34,7 +34,7 @@ function NoteCard({
   return (
     <>
       {expanded ? (
-        <div className={styles.expanded}>
+        <article className={styles.expanded}>
           <div className={styles.expanded__header}>
             <div className={styles.header__time}>
               <TimeIcon width={16} height={16} />
@@ -52,7 +52,7 @@ function NoteCard({
               onButtonClick={handleOnButtonClick}
             >
               <PlayIcon width={10} height={10} fill="#fff" />
-              <p className={styles.addButton__text}>Play</p>
+              <span className={styles.addButton__text}>Play</span>
             </Button>
           </div>
           <form className={styles.form} onSubmit={handleOnSubmit}>
@@ -70,7 +70,7 @@ function NoteCard({
               onChange={(event) => setContentValue(event.target.value)}
             />
           </form>
-        </div>
+        </article>
       ) : (
         <article className={styles.card}>
           <section onClick={handleOnCardClick}>
@@ -92,7 +92,7 @@ function NoteCard({
               onButtonClick={handleOnButtonClick}
             >
               <PlayIcon width={10} height={10} fill="#fff" />
-              <p className={styles.addButton__text}>Play</p>
+              <span className={styles.addButton__text}>Play</span>
             </Button>
           </div>
         </article>
