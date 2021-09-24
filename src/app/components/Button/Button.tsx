@@ -2,7 +2,13 @@ import React from 'react';
 import styles from './Button.module.css';
 
 type ButtonProps = {
-  type: 'circle' | 'circleWhite' | 'icon' | 'squareSmall' | 'squareBig';
+  type:
+    | 'circle'
+    | 'circleWhite'
+    | 'icon'
+    | 'squareSmall'
+    | 'squareBig'
+    | 'rectangle';
   onButtonClick?: () => void;
   children: React.ReactNode;
   className?: string;
