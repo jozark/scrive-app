@@ -56,3 +56,10 @@ export const shareIcon = (): JSX.Element => (
     <ShareIcon width={14} height={14} fill="#fff" />
   </Button>
 );
+
+export const playRectangle = (): JSX.Element => (
+  <Button type="rectangle" onButtonClick={() => console.log('click')}>
+    <PlayIcon width={12} height={12} fill="#fff" />
+    <p>Play</p>
+  </Button>
+);
