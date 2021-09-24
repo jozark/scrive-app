@@ -1,117 +1,70 @@
-import React, { useState } from 'react';
-import NoteCard from '../NoteCard/NoteCard';
+import type { ReactNode } from 'react';
+import React from 'react';
+import { animated, useSpring } from 'react-spring';
+import BackArrow from '../assets/BackArrow';
+import MoreIcon from '../assets/MoreIcon';
+import Button from '../Button/Button';
 import styles from './Drawer.module.css';
-import { useSpring, animated } from 'react-spring';
-import PlayControls from '../PlayControls/PlayControls';
 
-function Drawer(): JSX.Element {
-  const [open, setOpen] = useState<boolean>(true);
-  const mockData = [
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-    {
-      title: 'Mastery requires a Plan',
-      timestampBegin: '1:25h',
-      handleOnCardClick: () => console.log('Button Clicked'),
-      handleOnButtonClick: () => console.log('Button Clicked'),
-      content:
-        'Most people don’t have a plan in in their early 20s. Do things that contribute to your long-term vision.',
-    },
-  ];
+type DrawerProps = {
+  isOpen: boolean;
+  onHandleClick: () => void;
+  onBackArrowClick: () => void;
+  onOptionsClick: () => void;
+  display: 'note' | 'list';
+  children: ReactNode;
+};
 
+function Drawer({
+  isOpen,
+  onHandleClick,
+  onBackArrowClick,
+  onOptionsClick,
+  display,
+  children,
+}: DrawerProps): JSX.Element {
   const heigthProps = useSpring({
-    height: open ? '80vh' : '5vh',
-    from: { height: '5vh' },
-    config: { friction: open ? 18 : 21 },
-  });
-
-  const scaleProps = useSpring({
-    transform: open ? 'scale(0.7)' : 'scale(1)',
-    from: { transform: 'scale(1)' },
-    config: { friction: open ? 18 : 21 },
+    height: isOpen ? '85%' : '4%',
+    from: { height: '4%' },
+    config: { friction: isOpen ? 18 : 21 },
   });
 
   return (
     <div className={styles.container}>
-      <button style={{ marginBottom: '0.5rem' }}>newNote</button>
-
-      <animated.div style={scaleProps} className={styles.play}>
-        <PlayControls
-          type={'squareBig'}
-          onBackwardSkip={() => console.log('skip back 15s')}
-          onForwardSkip={() => console.log('Skip forward 15s')}
-          togglePlay={() => console.log('toggggle')}
-        />
-      </animated.div>
       <animated.div
         style={heigthProps}
-        className={`${styles.drawer} ${styles[`type--${open}`]}`}
+        className={`${styles.drawer} ${styles[`type--${isOpen}`]}`}
       >
         <div
-          className={`${styles.header} ${styles[`header--${open}`]}`}
-          onClick={() => setOpen(!open)}
+          className={`${styles.header} ${styles[`header--${isOpen}`]} ${
+            styles[`header--${display}`]
+          }`}
         >
-          <p>header</p>
-        </div>
-        <div className={styles.noteWrapper}>
-          {mockData &&
-            mockData.map((data, i) => (
-              <NoteCard
-                key={i}
-                title={data.title}
-                timestampBegin={data.timestampBegin}
-                handleOnCardClick={() => console.log('card')}
-                handleOnButtonClick={() => console.log('button')}
-                content={data.content}
+          {display === 'note' && (
+            <Button type="icon" onButtonClick={onBackArrowClick}>
+              <BackArrow
+                height={16}
+                width={16}
+                className={styles.header__icon}
+                fill="#C2C2C2"
               />
-            ))}
+            </Button>
+          )}
+          <Button type="icon" onButtonClick={onHandleClick}>
+            <div className={styles.header__drag}></div>
+          </Button>
+          {display === 'note' && (
+            <Button type="icon" onButtonClick={onOptionsClick}>
+              <MoreIcon
+                height={16}
+                width={16}
+                fill="#C2C2C2"
+                className={styles.header__icon}
+              />
+            </Button>
+          )}
         </div>
+        {children}
       </animated.div>
     </div>
   );
