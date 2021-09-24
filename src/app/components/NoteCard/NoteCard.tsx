@@ -34,8 +34,8 @@ function NoteCard({
   return (
     <>
       {expanded ? (
-        <div className={styles.expandedCard}>
-          <div className={styles.header}>
+        <div className={styles.expanded}>
+          <div className={styles.expanded__header}>
             <div className={styles.header__time}>
               <TimeIcon width={16} height={16} />
               <Typography type="p">Timestamp:</Typography>
@@ -48,10 +48,11 @@ function NoteCard({
             </div>
             <Button
               className={styles.addButton}
-              type="squareSmall"
+              type="rectangle"
               onButtonClick={handleOnButtonClick}
             >
-              <PlayIcon width={12} height={12} fill="#fff" />
+              <PlayIcon width={10} height={10} fill="#fff" />
+              <p className={styles.addButton__text}>Play</p>
             </Button>
           </div>
           <form className={styles.form} onSubmit={handleOnSubmit}>
@@ -73,22 +74,25 @@ function NoteCard({
       ) : (
         <div className={styles.card} onClick={handleOnCardClick}>
           <article>
-            <Typography type="h3" className={styles.title}>
+            <Typography type="h3" className={styles.card__title}>
               {titleValue}
             </Typography>
-            <div className={styles.timestamp}>
-              <TimeIcon width={12} height={12} />
-              <p className={styles.timestamp__text}>{timestampBegin}</p>
+            <section className={styles.card__content}>{contentValue}</section>
+            <div className={styles.card__footer}>
+              <div className={styles.timestamp}>
+                <TimeIcon width={14} height={14} />
+                <p className={styles.timestamp__text}>{timestampBegin}</p>
+              </div>
+              <Button
+                className={styles.addButton}
+                type="rectangle"
+                onButtonClick={handleOnButtonClick}
+              >
+                <PlayIcon width={10} height={10} fill="#fff" />
+                <p className={styles.addButton__text}>Play</p>
+              </Button>
             </div>
-            <section className={styles.content}>{contentValue}</section>
           </article>
-          <Button
-            className={styles.addButton}
-            type="squareSmall"
-            onButtonClick={handleOnButtonClick}
-          >
-            <PlayIcon width={12} height={12} fill="#fff" />
-          </Button>
         </div>
       )}
     </>
