@@ -11,7 +11,7 @@ type NoteCardProps = {
   titleValue: string;
   contentValue: string;
   timestampBegin: string;
-  handleOnCardClick: () => void;
+  handleOnCardClick?: () => void;
   handleOnButtonClick: () => void;
   handleOnTimestampClick: () => void;
   setTitleValue: (titleValue: string) => void;
@@ -37,8 +37,10 @@ function NoteCard({
         <article className={styles.expanded}>
           <div className={styles.expanded__header}>
             <div className={styles.header__time}>
-              <TimeIcon width={16} height={16} />
-              <Typography type="p">Timestamp:</Typography>
+              <TimeIcon width={16} height={16} fill="#C4C4C4" />
+              <Typography type="p" className={styles.time__text}>
+                Timestamp:
+              </Typography>
               <p
                 className={styles.time__begin}
                 onClick={handleOnTimestampClick}

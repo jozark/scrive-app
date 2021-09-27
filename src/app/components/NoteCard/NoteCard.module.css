@@ -70,14 +70,16 @@ textarea:focus {
 .expanded__header {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--accent-secondary);
 }
 
 .header__time {
   display: flex;
   align-items: center;
   gap: 0.375rem;
+}
+
+.time__text {
+  color: var(--txt-secondary);
 }
 
 .time__begin {
