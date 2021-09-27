@@ -33,3 +33,64 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+
+.detailContainer {
+  display: grid;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-primary);
+}
+
+.mainPlayer {
+  padding: 1rem 1.5rem;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
+.mainPlayerIsOpen--true {
+  height: 25%;
+}
+
+.header {
+  align-self: flex-start;
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.playback__cover {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.playback__info {
+  text-align: center;
+}
+
+.info__name {
+  padding: 0 0.5rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.info__artist {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.playControls {
+  padding-bottom: 1rem;
+}
+
+.drawer {
+  position: fixed;
+  opacity: 0.5;
+}
