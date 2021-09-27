@@ -31,7 +31,7 @@ export const drawerOpenList = (): JSX.Element => (
     onBackArrowClick={() => console.log('switch to listView')}
     onOptionsClick={() => console.log('show me options')}
   >
-    <p>Place notes Here</p>
+    <p>Place notes Here!</p>
   </Drawer>
 );
 
