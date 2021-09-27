@@ -9,6 +9,8 @@ import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
 import Drawer from '../Drawer/Drawer';
 import { animated, useSpring } from 'react-spring';
+import NoteCard from '../NoteCard/NoteCard';
+import AddIcon from '../assets/AddIcon';
 
 const track = {
   name: '',
@@ -21,6 +23,46 @@ const track = {
 type OverlayPlayerProps = {
   token: string;
 };
+
+const mockData = [
+  {
+    title: 'Mastery requires a Plan',
+    time: '1:24h',
+    content:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: 'Lorem Ipsum is simply dummy text',
+    time: '1:24h',
+    content:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: 'Lorem Ipsum has been the industrys fsdfs fsdfsd fsdfsd fdsfsd ',
+    time: '1:24h',
+    content:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title:
+      ' It was popularised in the 1960s with the release of Letraset sheets',
+    time: '1:24h',
+    content:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: 'It has survived not only five centuries',
+    time: '1:24h',
+    content:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+  {
+    title: 'Mastery requires a Plan',
+    time: '1:24h',
+    content:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
+];
 
 export default function OverlayPlayer({
   token,
@@ -116,7 +158,9 @@ export default function OverlayPlayer({
     return <></>;
   }
 
-  // const [isOpen, setIsOpen] = useState(true);
+  function handleBackClick() {
+    setPlayerIsDetailed(false);
+  }
 
   return (
     // <div className={`${styles.bar} ${className}`}>
@@ -154,7 +198,7 @@ export default function OverlayPlayer({
         <Header
           className={styles.header}
           type="options"
-          // onBackClick={() => handleBackClick()}
+          onBackClick={() => handleBackClick()}
         >
           {currentTrack.name}
         </Header>
@@ -198,8 +242,32 @@ export default function OverlayPlayer({
         onBackArrowClick={() => console.log('switch to listView')}
         onOptionsClick={() => console.log('show me options')}
       >
-        <p>Place notes Here</p>
+        <div className={styles.noteWrapper}>
+          {mockData &&
+            mockData[0]?.title &&
+            mockData.map((note) => (
+              <NoteCard
+                titleValue={note.title}
+                timestampBegin={note.time}
+                contentValue={note.content}
+                expanded={false}
+                handleOnCardClick={() => console.log('Card Clicked')}
+                handleOnButtonClick={() => console.log('Button Clicked')}
+                handleOnTimestampClick={() => console.log('Timestamp Clicked')}
+                handleOnSubmit={() => console.log('submitted')}
+                setTitleValue={() => console.log('Title Changed')}
+                setContentValue={() => console.log('Content Changed')}
+              />
+            ))}
+        </div>
       </Drawer>
+      <Button
+        type="circle"
+        onButtonClick={() => console.log('click')}
+        className={styles.addButton}
+      >
+        <AddIcon width={28} height={28} fill="#fff" />
+      </Button>
     </div>
   );
 }
