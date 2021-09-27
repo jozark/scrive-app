@@ -9,7 +9,7 @@ button {
 }
 
 .type--circle {
-  padding: 1.125rem;
+  padding: 1rem;
   border-radius: 50%;
   background-color: var(--accent-primary);
 }
@@ -28,7 +28,7 @@ button {
 
 .type--squareBig {
   background-color: var(--accent-primary);
-  padding: 1.125rem;
+  padding: 0.875rem;
   border-radius: 8px;
 }
 

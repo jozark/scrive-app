@@ -75,7 +75,7 @@ export default function OverlayPlayer({
   const [isOpen, setIsOpen] = useState(false);
 
   const scaleProps = useSpring({
-    transform: isOpen ? 'scale(0.6)' : 'scale(1)',
+    transform: isOpen ? 'scale(0.7)' : 'scale(1)',
     from: { transform: 'scale(1)' },
     config: { friction: isOpen ? 18 : 21 },
   });
