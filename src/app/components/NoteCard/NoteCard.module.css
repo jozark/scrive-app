@@ -14,7 +14,7 @@ textarea:focus {
 .card {
   width: 100%;
   border-bottom: 1px var(--accent-secondary) solid;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .card__title {
@@ -60,7 +60,7 @@ textarea:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.625rem;
+  padding-top: 0.75rem;
 }
 
 .expanded {
