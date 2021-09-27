@@ -22,7 +22,7 @@ textarea:focus {
   overflow: hidden;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  padding-bottom: 0.375rem;
+  padding-bottom: 0.25rem;
 }
 
 .timestamp {
