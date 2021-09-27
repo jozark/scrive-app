@@ -13,7 +13,7 @@ type NoteCardProps = {
   timestampBegin: string;
   handleOnCardClick?: () => void;
   handleOnButtonClick: () => void;
-  handleOnTimestampClick: () => void;
+  handleOnTimestampClick?: () => void;
   setTitleValue: (titleValue: string) => void;
   setContentValue: (contentValue: string) => void;
   handleOnSubmit: (event: React.FormEvent) => void;
