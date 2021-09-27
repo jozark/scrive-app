@@ -65,7 +65,7 @@ export default function Drawer({
           </Button>
         )}
       </div>
-      {isOpen ? children : ''}
+      <div className={styles.noteWrapper}>{isOpen ? children : ''}</div>
     </animated.div>
   );
 }
