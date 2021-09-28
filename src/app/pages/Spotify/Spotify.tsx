@@ -35,7 +35,7 @@ export default function Spotify(): JSX.Element {
   }
 
   function handleAddClick(episode: Episode) {
-    addEpisodeData(episode);
+    addEpisodeData({ ...episode, notes: [] });
     history.push('/');
   }
 
