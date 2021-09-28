@@ -106,6 +106,7 @@
 .noteWrapper {
   display: grid;
   gap: 0.75rem;
+  padding-bottom: 1.5rem;
 }
 
 .addButton {
