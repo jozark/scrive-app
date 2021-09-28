@@ -61,7 +61,7 @@ function NoteCard({
             <input
               className={styles.form__title}
               type="text"
-              placeholder="Titel..."
+              placeholder="Titel"
               value={titleValue}
               onChange={(event) => setTitleValue(event.target.value)}
             />
@@ -70,6 +70,7 @@ function NoteCard({
               minRows={10}
               value={contentValue}
               onChange={(event) => setContentValue(event.target.value)}
+              placeholder="Start writing..."
             />
           </form>
         </article>
