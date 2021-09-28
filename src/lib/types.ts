@@ -70,4 +70,11 @@ export type Episode = {
   image: string;
   duration: number;
   uri: string;
+  notes?: Note[];
+};
+
+export type Note = {
+  timestamp: number;
+  title: string;
+  content: string;
 };
