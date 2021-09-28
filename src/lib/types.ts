@@ -74,6 +74,7 @@ export type Episode = {
 };
 
 export type Note = {
+  id: string;
   timestamp: number;
   title: string;
   content: string;
