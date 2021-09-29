@@ -16,9 +16,9 @@ export default function BackArrow(
         fill="inherit"
         d="M7.125 1L1 7M1 7L7.125 13M1 7L15 7.00001"
         stroke="#C2C2C2"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
