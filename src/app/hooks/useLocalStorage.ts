@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function useLocalStorage<T>(
   key: string,
   initialValue: T
-): [T, (value: T) => void] {
+): [T, (value: T) => void, () => void] {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = localStorage.getItem(key);
@@ -14,6 +14,16 @@ export default function useLocalStorage<T>(
     }
   });
 
+  function refetch() {
+    try {
+      const item = localStorage.getItem(key);
+      setStoredValue(item ? JSON.parse(item) : initialValue);
+    } catch (error) {
+      console.log(error);
+      setStoredValue(initialValue);
+    }
+  }
+
   const setValue = (value: T) => {
     try {
       setStoredValue(value);
@@ -22,5 +32,5 @@ export default function useLocalStorage<T>(
       console.log(error);
     }
   };
-  return [storedValue, setValue];
+  return [storedValue, setValue, refetch];
 }

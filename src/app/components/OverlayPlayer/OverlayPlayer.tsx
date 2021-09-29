@@ -53,7 +53,15 @@ export default function OverlayPlayer({
     episodeData,
     addEpisodeNote,
     updateEpisodeNote,
+    refetch,
   } = useEpisodes();
+
+  const { setDeviceID, playerIsActive, playerIsDetailed, setPlayerIsDetailed } =
+    useContext(PlayerContext);
+
+  useEffect(() => {
+    refetch();
+  }, [playerIsActive]);
 
   const scaleProps = useSpring({
     transform: isOpen ? 'scale(0.7)' : 'scale(1)',
@@ -65,9 +73,6 @@ export default function OverlayPlayer({
     transform: isOpen ? 'scale(0)' : 'scale(1)',
     from: { transform: 'scale(1)' },
   });
-
-  const { setDeviceID, playerIsActive, playerIsDetailed, setPlayerIsDetailed } =
-    useContext(PlayerContext);
 
   //initialize player
   useEffect(() => {
@@ -191,6 +196,8 @@ export default function OverlayPlayer({
       (episode) => episode.id === playerIsActive
     );
 
+    console.log(activeEpisode);
+    console.log(playerIsActive);
     const isNoteThere = activeEpisode?.notes.find(
       (note) => note.id === newNote.id
     );
