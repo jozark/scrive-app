@@ -4,10 +4,10 @@ import useDebounce from '../hooks/useDebounce';
 
 type PlayerProps = {
   deviceID: string;
-  playerIsActive: boolean;
+  playerIsActive: string;
   playerIsDetailed: boolean;
   setDeviceID: Dispatch<SetStateAction<string>>;
-  setPlayerIsActive: Dispatch<SetStateAction<boolean>>;
+  setPlayerIsActive: Dispatch<SetStateAction<string>>;
   setPlayerIsDetailed: Dispatch<SetStateAction<boolean>>;
 };
 
@@ -17,7 +17,7 @@ type ContextProps = {
 
 export const PlayerContext = createContext<PlayerProps>({
   deviceID: '',
-  playerIsActive: false,
+  playerIsActive: '',
   playerIsDetailed: false,
   setPlayerIsDetailed: () => null,
   setDeviceID: () => null,
@@ -27,7 +27,7 @@ export const PlayerContext = createContext<PlayerProps>({
 export default function PlayerContextProvider(
   props: ContextProps
 ): JSX.Element {
-  const [playerIsActive, setPlayerIsActive] = useState<boolean>(false);
+  const [playerIsActive, setPlayerIsActive] = useState<string>('');
   const [deviceID, setDeviceID] = useState<string>('');
   const [playerIsDetailed, setPlayerIsDetailed] = useState<boolean>(false);
 

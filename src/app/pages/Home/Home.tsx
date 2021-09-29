@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import type { Episode } from '../../../lib/types';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
 import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
@@ -27,9 +28,9 @@ export default function Home({ token }: HomeProps): JSX.Element {
     });
   }
 
-  function handleOnCardClick(uri: string) {
-    setPlayerIsActive(true);
-    playEpisode(uri);
+  function handleOnCardClick(episode: Episode) {
+    setPlayerIsActive(episode.id);
+    playEpisode(episode.uri);
   }
 
   const playerInfo = async () => {
@@ -96,7 +97,7 @@ export default function Home({ token }: HomeProps): JSX.Element {
           episodeData.map((data) => (
             <EpisodeCard
               key={data.id}
-              handleOnClick={() => handleOnCardClick(data.uri)}
+              handleOnClick={() => handleOnCardClick(data)}
               type="note"
               image={data.image}
               title={data.title}
