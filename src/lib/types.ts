@@ -70,7 +70,7 @@ export type Episode = {
   image: string;
   duration: number;
   uri: string;
-  notes?: Note[];
+  notes: Note[];
 };
 
 export type Note = {
