@@ -1,23 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Slider.module.css';
 
 type SliderProps = {
-  onChange: () => void;
-  className: string;
+  handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  percentageValue: number;
+  className?: string;
 };
 
-export default function Slider(): JSX.Element {
-  const [percentage, setPercentage] = useState(0);
+export default function Slider({
+  percentageValue: percentage,
+  handleOnChange,
+  className,
+}: SliderProps): JSX.Element {
+  const [position, setPosition] = useState(0);
+  const [marginLeft, setMarginLeft] = useState(0);
 
-  function testChange(event: any) {
-    setPercentage(event.target.value);
-  }
-
-  console.log(percentage);
+  useEffect(() => {
+    const handleWidth = 13;
+    const centerHandle = (handleWidth / 100) * percentage * -1;
+    setMarginLeft(centerHandle);
+    setPosition(percentage);
+  }, [percentage]);
 
   return (
-    <div className={`${styles.slider}`}>
-      <input type="range" step="0.1" onChange={(event) => testChange(event)} />
+    <div className={`${styles.container} ${className}`}>
+      <div
+        className={styles.progressbar}
+        style={{ width: `${position}%` }}
+      ></div>
+      <div
+        className={styles.handle}
+        style={{ left: `${position}%`, marginLeft: `${marginLeft}px` }}
+      ></div>
+      <input
+        className={styles.slider}
+        value={position}
+        type="range"
+        step="0.01"
+        onChange={handleOnChange}
+      />
     </div>
   );
 }
