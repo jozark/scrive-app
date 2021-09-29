@@ -9,8 +9,13 @@ import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
 import Drawer from '../Drawer/Drawer';
 import { animated, useSpring } from 'react-spring';
+import { msTimeFormat } from '../../utils/utils';
 import NoteCard from '../NoteCard/NoteCard';
 import AddIcon from '../assets/AddIcon';
+import useEpisodes from '../../hooks/useEpisodes';
+import type { Note } from '../../../lib/types';
+import { v1 as uuidv1 } from 'uuid';
+import CheckIcon from '../assets/CheckIcon';
 
 const track = {
   name: '',
@@ -22,57 +27,33 @@ const track = {
 
 type OverlayPlayerProps = {
   token: string;
+  className: string;
 };
-
-const mockData = [
-  {
-    title: 'Mastery requires a Plan',
-    time: '1:24h',
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    title: 'Lorem Ipsum is simply dummy text',
-    time: '1:24h',
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    title: 'Lorem Ipsum has been the industrys fsdfs fsdfsd fsdfsd fdsfsd ',
-    time: '1:24h',
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    title:
-      ' It was popularised in the 1960s with the release of Letraset sheets',
-    time: '1:24h',
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    title: 'It has survived not only five centuries',
-    time: '1:24h',
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    title: 'Mastery requires a Plan',
-    time: '1:24h',
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-];
 
 export default function OverlayPlayer({
   token,
+  className,
 }: OverlayPlayerProps): JSX.Element {
+  //player states
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
-  const [isPaused, setPaused] = useState(false);
-  const [isActive, setActive] = useState(false);
+  const [isPaused, setPaused] = useState<boolean>(false);
+  const [isActive, setActive] = useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = useState(track);
   const [playbackProgress, setPlaybackProgress] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+
+  //note states
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [activeNoteID, setActiveNoteID] = useState('');
+  const [activeNoteTimeStamp, setActiveNoteTimeStamp] = useState(0);
+  const [titleValue, setTitleValue] = useState('');
+  const [contentValue, setContentValue] = useState('');
+  const {
+    addEpisodeData,
+    removeEpisodeData,
+    episodeData,
+    addEpisodeNote,
+    updateEpisodeNote,
+  } = useEpisodes();
 
   const scaleProps = useSpring({
     transform: isOpen ? 'scale(0.7)' : 'scale(1)',
@@ -88,6 +69,7 @@ export default function OverlayPlayer({
   const { setDeviceID, playerIsActive, playerIsDetailed, setPlayerIsDetailed } =
     useContext(PlayerContext);
 
+  //initialize player
   useEffect(() => {
     const script = document.createElement('script');
 
@@ -129,7 +111,6 @@ export default function OverlayPlayer({
     player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
       setDeviceID(device_id);
-      console.log(setDeviceID);
     });
 
     player.addListener('not_ready', ({ device_id }) => {
@@ -147,19 +128,83 @@ export default function OverlayPlayer({
 
       setCurrentTrack(track_window.current_track);
       setPaused(paused);
-      setPlaybackProgress(position / duration);
+      setPlaybackProgress(position);
       player.getCurrentState().then((state) => {
         !state ? setActive(false) : setActive(true);
       });
     });
   };
 
-  if (!playerIsActive) {
-    return <></>;
-  }
-
   function handleBackClick() {
     setPlayerIsDetailed(false);
+  }
+
+  function handleOnCardClick(note: Note) {
+    setActiveNoteID(note.id);
+    setActiveNoteTimeStamp(note.timestamp);
+    setTitleValue(note.title);
+    setContentValue(note.content);
+  }
+
+  function handleBackArrowClick() {
+    handleOnSubmit();
+    setTitleValue('');
+    setContentValue('');
+    setActiveNoteID('');
+    setActiveNoteTimeStamp(0);
+  }
+
+  function handleHandleClick() {
+    setActiveNoteID('');
+    setIsOpen(!isOpen);
+  }
+
+  function handleAddButtonClick() {
+    setTitleValue('');
+    setContentValue('');
+
+    const newNote: Note = {
+      id: uuidv1(),
+      title: titleValue,
+      content: contentValue,
+      timestamp: playbackProgress,
+    };
+
+    setActiveNoteID(newNote.id);
+    setActiveNoteTimeStamp(newNote.timestamp);
+    setIsOpen(true);
+  }
+
+  function handleOnSubmit() {
+    if (!titleValue) {
+      alert('Please Enter a Title!');
+    }
+
+    const newNote: Note = {
+      id: activeNoteID,
+      title: titleValue,
+      content: contentValue,
+      timestamp: activeNoteTimeStamp,
+    };
+
+    const activeEpisode = episodeData.find(
+      (episode) => episode.id === playerIsActive
+    );
+
+    const isNoteThere = activeEpisode?.notes.find(
+      (note) => note.id === newNote.id
+    );
+
+    if (isNoteThere) {
+      updateEpisodeNote(playerIsActive, newNote);
+    } else {
+      addEpisodeNote(playerIsActive, newNote);
+    }
+  }
+
+  //only display when the player is active
+  if (!playerIsActive) {
+    return <></>;
   }
 
   return (
@@ -236,37 +281,66 @@ export default function OverlayPlayer({
       </div>
       <Drawer
         className={styles.drawer}
-        display="list"
+        display={activeNoteID ? 'note' : 'list'}
         isOpen={isOpen}
-        onHandleClick={() => setIsOpen(!isOpen)}
-        onBackArrowClick={() => console.log('switch to listView')}
+        onHandleClick={handleHandleClick}
+        onBackArrowClick={handleBackArrowClick}
         onOptionsClick={() => console.log('show me options')}
       >
         <div className={styles.noteWrapper}>
-          {mockData &&
-            mockData[0]?.title &&
-            mockData.map((note) => (
-              <NoteCard
-                titleValue={note.title}
-                timestampBegin={note.time}
-                contentValue={note.content}
-                expanded={false}
-                handleOnCardClick={() => console.log('Card Clicked')}
-                handleOnButtonClick={() => console.log('Button Clicked')}
-                handleOnTimestampClick={() => console.log('Timestamp Clicked')}
-                handleOnSubmit={() => console.log('submitted')}
-                setTitleValue={() => console.log('Title Changed')}
-                setContentValue={() => console.log('Content Changed')}
-              />
-            ))}
+          {activeNoteID ? (
+            <NoteCard
+              titleValue={titleValue}
+              contentValue={contentValue}
+              setTitleValue={setTitleValue}
+              setContentValue={setContentValue}
+              //change to time snap rather than state
+              timestampBegin={msTimeFormat(playbackProgress)}
+              expanded={true}
+              handleOnButtonClick={() =>
+                console.log('"handle me" - Play Button on Card')
+              }
+              handleOnTimestampClick={() => console.log('"handle me" - time')}
+              handleOnSubmit={(event) => event.preventDefault()}
+            />
+          ) : (
+            <>
+              {episodeData.map((episode) => {
+                if (episode.title === currentTrack.name) {
+                  const episodeNotes = episode.notes?.map((note) => (
+                    <NoteCard
+                      key={note.id}
+                      titleValue={note.title}
+                      timestampBegin={msTimeFormat(note.timestamp)}
+                      contentValue={note.content}
+                      expanded={false}
+                      handleOnCardClick={() => handleOnCardClick(note)}
+                      handleOnButtonClick={() =>
+                        console.log('"handle me" - Play Button on Card')
+                      }
+                      handleOnSubmit={handleOnSubmit}
+                      setTitleValue={() => console.log('Title Changed')}
+                      setContentValue={() => console.log('Content Changed')}
+                    />
+                  ));
+                  return episodeNotes;
+                }
+                return;
+              })}
+            </>
+          )}
         </div>
       </Drawer>
       <Button
         type="circle"
-        onButtonClick={() => console.log('click')}
+        onButtonClick={handleAddButtonClick}
         className={styles.addButton}
       >
-        <AddIcon width={28} height={28} fill="#fff" />
+        {activeNoteID ? (
+          <CheckIcon width={28} height={28} fill="#fff" />
+        ) : (
+          <AddIcon width={28} height={28} fill="#fff" />
+        )}
       </Button>
     </div>
   );
