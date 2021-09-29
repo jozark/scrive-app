@@ -207,33 +207,7 @@ export default function OverlayPlayer({
     return <></>;
   }
 
-  return (
-    // <div className={`${styles.bar} ${className}`}>
-    //   <img
-    //     src={
-    //       currentTrack.album.images[currentTrack.album.images.length - 1].url
-    //     }
-    //     alt=""
-    //     className={styles.cover}
-    //   />
-    //   <div className={styles.text}>
-    //     <Typography type="p" className={styles.text__head}>
-    //       {currentTrack.name}
-    //     </Typography>
-    //     <p className={styles.text__sub}>{currentTrack.artists[0].name}</p>
-    //   </div>
-    //   <Button
-    //     type={'squareSmall'}
-    //     className={styles.play}
-    //     onButtonClick={() => player?.togglePlay()}
-    //   >
-    //     {isPaused ? (
-    //       <PlayIcon width={12} height={12} fill="#fff" />
-    //     ) : (
-    //       <PauseIcon width={12} height={12} />
-    //     )}
-    //   </Button>
-    // </div>
+  return playerIsDetailed ? (
     <div className={styles.detailContainer}>
       <div
         className={`${styles.mainPlayer} ${
@@ -340,6 +314,36 @@ export default function OverlayPlayer({
           <CheckIcon width={28} height={28} fill="#fff" />
         ) : (
           <AddIcon width={28} height={28} fill="#fff" />
+        )}
+      </Button>
+    </div>
+  ) : (
+    <div
+      className={`${styles.bar} ${className}`}
+      onClick={() => setPlayerIsDetailed(true)}
+    >
+      <img
+        src={
+          currentTrack.album.images[currentTrack.album.images.length - 1].url
+        }
+        alt=""
+        className={styles.cover}
+      />
+      <div className={styles.text}>
+        <Typography type="p" className={styles.text__head}>
+          {currentTrack.name}
+        </Typography>
+        <p className={styles.text__sub}>{currentTrack.artists[0].name}</p>
+      </div>
+      <Button
+        type={'squareSmall'}
+        className={styles.play}
+        onButtonClick={() => player?.togglePlay()}
+      >
+        {isPaused ? (
+          <PlayIcon width={12} height={12} fill="#fff" />
+        ) : (
+          <PauseIcon width={12} height={12} />
         )}
       </Button>
     </div>
