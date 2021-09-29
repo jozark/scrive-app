@@ -276,7 +276,7 @@ export default function OverlayPlayer({
               setTitleValue={setTitleValue}
               setContentValue={setContentValue}
               //change to time snap rather than state
-              timestampBegin={msTimeFormat(playbackProgress)}
+              timestampBegin={msTimeFormat(activeNoteTimeStamp)}
               expanded={true}
               handleOnButtonClick={() =>
                 console.log('"handle me" - Play Button on Card')
