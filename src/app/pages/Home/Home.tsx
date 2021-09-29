@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import type { Episode } from '../../../lib/types';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
@@ -17,7 +17,6 @@ type HomeProps = {
 };
 
 export default function Home({ token }: HomeProps): JSX.Element {
-  const history = useHistory();
   const [searchValue, setSearchValue] = useState('');
   const { episodeData } = useEpisodes();
   const { deviceID, setPlayerIsActive } = useContext(PlayerContext);
@@ -46,25 +45,8 @@ export default function Home({ token }: HomeProps): JSX.Element {
     console.log(playerData);
   };
 
-  const devicesInfo = async () => {
-    const response = await fetch(
-      `https://api.spotify.com/v1/me/player/devices`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const devicesData = await response.json();
-    // console.log(devicesData);
-  };
-
   useEffect(() => {
     playerInfo();
-    devicesInfo();
   }, []);
 
   return (
