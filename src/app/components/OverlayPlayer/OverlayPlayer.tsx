@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
 import Drawer from '../Drawer/Drawer';
 import { animated, useSpring } from 'react-spring';
-import { msTimeFormat } from '../../utils/utils';
+import { msTimeFormat, msTimeFormatToMin } from '../../utils/utils';
 import NoteCard from '../NoteCard/NoteCard';
 import AddIcon from '../assets/AddIcon';
 import useEpisodes from '../../hooks/useEpisodes';
@@ -17,6 +17,7 @@ import type { Note } from '../../../lib/types';
 import { v1 as uuidv1 } from 'uuid';
 import CheckIcon from '../assets/CheckIcon';
 import Slider from '../Slider/Slider';
+import useDebounce from '../../hooks/useDebounce';
 
 const track = {
   name: '',
@@ -42,6 +43,9 @@ export default function OverlayPlayer({
   const [currentTrack, setCurrentTrack] = useState(track);
   const [playbackProgress, setPlaybackProgress] = useState<number>(0);
   const [playbackTimestamp, setPlaybackTimestamp] = useState<number>(0);
+  const [playbackDuration, setPlaybackDuration] = useState<number>(0);
+  const [timeSeek, setTimeSeek] = useState<number>(0);
+  const debouncedTimeSeek = useDebounce<number>(timeSeek, 500);
 
   //note states
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -58,17 +62,6 @@ export default function OverlayPlayer({
   useEffect(() => {
     refetch();
   }, [playerIsActive]);
-
-  const scaleProps = useSpring({
-    transform: isOpen ? 'scale(0.65)' : 'scale(1)',
-    from: { transform: 'scale(1)' },
-    config: { friction: isOpen ? 18 : 21 },
-  });
-
-  const vanishProps = useSpring({
-    transform: isOpen ? 'scale(0)' : 'scale(1)',
-    from: { transform: 'scale(1)' },
-  });
 
   //initialize player
   useEffect(() => {
@@ -130,6 +123,7 @@ export default function OverlayPlayer({
       setCurrentTrack(track_window.current_track);
       setPaused(paused);
       setPlaybackTimestamp(position);
+      setPlaybackDuration(duration);
       setPlaybackProgress(position / duration);
       player.getCurrentState().then((state) => {
         !state ? setActive(false) : setActive(true);
@@ -137,8 +131,33 @@ export default function OverlayPlayer({
     });
   };
 
+  const scaleProps = useSpring({
+    transform: isOpen ? 'scale(0.65)' : 'scale(1)',
+    from: { transform: 'scale(1)' },
+    config: { friction: isOpen ? 18 : 21 },
+  });
+
+  const vanishProps = useSpring({
+    transform: isOpen ? 'scale(0)' : 'scale(1)',
+    from: { transform: 'scale(1)' },
+  });
+
+  // if (!isPaused) {
+  //   setInterval(() => setPlaybackTimestamp(playbackTimestamp + 1000), 1000);
+  // }
+
   function handleBackClick() {
     setPlayerIsDetailed(false);
+  }
+
+  async function handlePlayButtonCard(time: number) {
+    await fetch(`/api/player/${time}`, {
+      method: 'PUT',
+    });
+    //why isn't it working?
+    if (isPaused) {
+      player?.togglePlay();
+    }
   }
 
   function handleOnCardClick(note: Note) {
@@ -161,8 +180,25 @@ export default function OverlayPlayer({
     setIsOpen(!isOpen);
   }
 
+  async function handleOnSliderClick(
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
+    // console.log(+event.target.value, 'event');
+    const seekingTime = Math.round(
+      +event.target.value * 0.01 * playbackDuration
+    );
+    // console.log(playbackDuration, 'durations');
+    console.log(seekingTime, 'seeking');
+    // setTimeSeek(seekingTime);
+    // console.log(timeSeek, 'time');
+    // console.log(debouncedTimeSeek, 'ddeb');
+    // console.log(playbackDuration, 'dura');
+    await fetch(`/api/player/${seekingTime}`, {
+      method: 'PUT',
+    });
+  }
+
   function handleAddButtonClick() {
-    console.log(playbackProgress);
     setTitleValue('');
     setContentValue('');
 
@@ -220,7 +256,7 @@ export default function OverlayPlayer({
         }`}
       >
         <Header
-          className={styles.header}
+          className={`${styles.header} ${styles[`header--${isOpen}`]}`}
           type="options"
           onBackClick={() => handleBackClick()}
         >
@@ -252,12 +288,16 @@ export default function OverlayPlayer({
         <div className={`${styles.controls} ${styles[`controls--${isOpen}`]}`}>
           <div className={styles.slider}>
             <Slider
-              handleOnChange={() => console.log('change')}
+              handleOnChange={(event) => handleOnSliderClick(event)}
               percentageValue={playbackProgress * 100}
             />
             <div className={styles.slider__time}>
-              <Typography type="subHeading">0:00</Typography>
-              <Typography type="subHeading">3:00</Typography>
+              <Typography type="subHeading">
+                {msTimeFormatToMin(playbackTimestamp)}
+              </Typography>
+              <Typography type="subHeading">
+                {msTimeFormatToMin(playbackDuration)}
+              </Typography>
             </div>
           </div>
           <animated.div style={scaleProps} className={styles.play}>
@@ -287,7 +327,6 @@ export default function OverlayPlayer({
               contentValue={contentValue}
               setTitleValue={setTitleValue}
               setContentValue={setContentValue}
-              //change to time snap rather than state
               timestampBegin={msTimeFormat(activeNoteTimeStamp)}
               expanded={true}
               handleOnButtonClick={() =>
@@ -309,7 +348,7 @@ export default function OverlayPlayer({
                       expanded={false}
                       handleOnCardClick={() => handleOnCardClick(note)}
                       handleOnButtonClick={() =>
-                        console.log('"handle me" - Play Button on Card')
+                        handlePlayButtonCard(note.timestamp)
                       }
                       handleOnSubmit={handleOnSubmit}
                       setTitleValue={() => console.log('Title Changed')}
@@ -326,7 +365,9 @@ export default function OverlayPlayer({
       </Drawer>
       <Button
         type="circle"
-        onButtonClick={handleAddButtonClick}
+        onButtonClick={
+          activeNoteID ? handleBackArrowClick : handleAddButtonClick
+        }
         className={styles.addButton}
       >
         {activeNoteID ? (
@@ -337,18 +378,20 @@ export default function OverlayPlayer({
       </Button>
     </div>
   ) : (
-    <div
-      className={`${styles.bar} ${className}`}
-      onClick={() => setPlayerIsDetailed(true)}
-    >
+    <div className={`${styles.bar} ${className}`}>
+      <div
+        className={styles.progressCard}
+        style={{ right: `${100 - playbackProgress * 100}%` }}
+      />
       <img
         src={
           currentTrack.album.images[currentTrack.album.images.length - 1].url
         }
         alt=""
         className={styles.cover}
+        onClick={() => setPlayerIsDetailed(true)}
       />
-      <div className={styles.text}>
+      <div className={styles.text} onClick={() => setPlayerIsDetailed(true)}>
         <Typography type="p" className={styles.text__head}>
           {currentTrack.name}
         </Typography>
