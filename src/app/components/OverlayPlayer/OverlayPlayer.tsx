@@ -275,6 +275,10 @@ export default function OverlayPlayer({
                 alt=""
               />
             </animated.div>
+          </>
+        )}
+        <div className={`${styles.controls} ${styles[`controls--${isOpen}`]}`}>
+          {!isOpen ? (
             <section className={styles.playback__info}>
               <Typography type="h2" className={styles.info__name}>
                 {currentTrack.name}
@@ -283,9 +287,9 @@ export default function OverlayPlayer({
                 {currentTrack.artists[0].name}
               </Typography>
             </section>
-          </>
-        )}
-        <div className={`${styles.controls} ${styles[`controls--${isOpen}`]}`}>
+          ) : (
+            <></>
+          )}
           <div className={styles.slider}>
             <Slider
               handleOnChange={(event) => handleOnSliderClick(event)}
