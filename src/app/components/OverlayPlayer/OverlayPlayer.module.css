@@ -75,7 +75,7 @@
 }
 
 .slider__time {
-  padding-top: 0.25rem;
+  padding-top: 0.5rem;
   display: flex;
   justify-content: space-between;
 }
@@ -84,6 +84,10 @@
   align-self: flex-start;
   width: 100%;
   padding-bottom: 3vh;
+}
+
+.header--true {
+  padding-bottom: 2vh;
 }
 
 .playback {
