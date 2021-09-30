@@ -237,14 +237,14 @@ export default function OverlayPlayer({
                 alt=""
               />
             </animated.div>
-            <div className={styles.playback__info}>
+            <section className={styles.playback__info}>
               <Typography type="h2" className={styles.info__name}>
                 {currentTrack.name}
               </Typography>
               <Typography type="subHeading" className={styles.info__artist}>
                 {currentTrack.artists[0].name}
               </Typography>
-            </div>
+            </section>
           </>
         )}
         <div className={`${styles.controls} ${styles[`controls--${isOpen}`]}`}>
