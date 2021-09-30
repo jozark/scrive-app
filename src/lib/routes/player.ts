@@ -26,4 +26,25 @@ router.put('/:id/:uri', async (req, res) => {
   }
 });
 
+router.put('/:position', async (req, res) => {
+  const { position } = req.params;
+  const token = req.cookies.token;
+  try {
+    await fetch(
+      `https://api.spotify.com/v1/me/player/seek?position_ms=${position}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: err });
+  }
+});
+
 export default router;
