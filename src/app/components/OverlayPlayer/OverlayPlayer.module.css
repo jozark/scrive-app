@@ -1,4 +1,5 @@
 .bar {
+  position: relative;
   background-color: var(--bg-secondary);
   display: grid;
   grid-auto-flow: column;
@@ -15,6 +16,15 @@
   height: 2.75rem;
   object-fit: contain;
   border-radius: 4px;
+  z-index: 1;
+}
+
+.play {
+  z-index: 1;
+}
+
+.text {
+  z-index: 1;
 }
 
 .text__sub {
@@ -142,4 +152,13 @@
   right: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   z-index: 5;
+}
+
+.progressCard {
+  position: absolute;
+  background-color: #38384b;
+  border-radius: 5px 0 0 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
