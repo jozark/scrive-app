@@ -10,3 +10,14 @@
   left: 0;
   right: 0;
 }
+
+.loginButton {
+  width: 80%;
+}
+
+.container {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100vh;
+}
