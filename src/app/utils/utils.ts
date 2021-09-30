@@ -19,5 +19,5 @@ export function msTimeFormatToMin(ms: number): string {
   const minutes = Math.floor(s / 60);
   const seconds = s - minutes * 60;
 
-  return `${minutes}:${seconds}`;
+  return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
