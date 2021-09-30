@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Header from '../../components/Header/Header';
@@ -10,6 +10,7 @@ import useSearchEpisodes from '../../hooks/useSearchEpisodes';
 import { msTimeFormat } from '../../utils/utils';
 import useEpisodes from '../../hooks/useEpisodes';
 import type { Episode } from '../../../lib/types';
+import { PlayerContext } from '../../context/PlayerContext';
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
@@ -17,6 +18,8 @@ export default function Spotify(): JSX.Element {
   const debouncedValue = useDebounce<string>(searchValue, 500);
   const { addEpisodeData } = useEpisodes();
   const [token, setToken] = useState('');
+
+  const { playerIsActive } = useContext(PlayerContext);
 
   useEffect(() => {
     async function getToken(): Promise<void> {
@@ -44,7 +47,10 @@ export default function Spotify(): JSX.Element {
   }
 
   return (
-    <main className={styles.container}>
+    <main
+      className={`${styles.container}`}
+      style={{ height: `${playerIsActive ? 'calc( 100vh - 60px )' : '100vh'}` }}
+    >
       <Header
         className={styles.header}
         type="default"
