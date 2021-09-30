@@ -22,22 +22,24 @@ const randomString = (length: number) => {
 };
 
 router.get('/login', (_request, response) => {
-  const scope =
-    'streaming app-remote-control user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing user-library-read user-library-modify';
+  const scopes = [
+    'streaming',
+    'app-remote-control',
+    'user-read-email',
+    'user-read-private',
+    'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'user-library-read',
+    'user-library-modify',
+  ];
 
   const state = randomString(16);
 
-  const auth_query_parameters = new URLSearchParams({
-    response_type: 'code',
-    client_id: spotifyClientId,
-    scope: scope,
-    redirect_uri: 'http://localhost:3000/api/auth/callback',
-    state: state,
-  });
-
   response.redirect(
-    'https://accounts.spotify.com/authorize/?' +
-      auth_query_parameters.toString()
+    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=http://localhost:3000/api/auth/callback&scope=${scopes.join(
+      '%20'
+    )}&state=${state}`
   );
 });
 
