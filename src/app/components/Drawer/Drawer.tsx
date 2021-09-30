@@ -28,7 +28,7 @@ export default function Drawer({
   const heigthProps = useSpring({
     height: isOpen ? '75%' : '5%',
     from: { height: '5%' },
-    config: { friction: isOpen ? 18 : 21 },
+    config: { friction: isOpen ? 21 : 23 },
   });
 
   return (
