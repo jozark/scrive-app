@@ -13,3 +13,11 @@ export function msTimeFormat(ms: number): string {
     } h`;
   }
 }
+
+export function msTimeFormatToMin(ms: number): string {
+  const s = Math.floor(ms / 1000);
+  const minutes = Math.floor(s / 60);
+  const seconds = s - minutes * 60;
+
+  return `${minutes}:${seconds}`;
+}
