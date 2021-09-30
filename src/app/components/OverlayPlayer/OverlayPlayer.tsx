@@ -16,6 +16,7 @@ import useEpisodes from '../../hooks/useEpisodes';
 import type { Note } from '../../../lib/types';
 import { v1 as uuidv1 } from 'uuid';
 import CheckIcon from '../assets/CheckIcon';
+import Slider from '../Slider/Slider';
 
 const track = {
   name: '',
@@ -39,7 +40,7 @@ export default function OverlayPlayer({
   const [isPaused, setPaused] = useState<boolean>(false);
   const [isActive, setActive] = useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = useState(track);
-  const [playbackProgress, setPlaybackProgress] = useState(0);
+  const [playbackProgress, setPlaybackProgress] = useState<number>(0);
 
   //note states
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -47,14 +48,8 @@ export default function OverlayPlayer({
   const [activeNoteTimeStamp, setActiveNoteTimeStamp] = useState(0);
   const [titleValue, setTitleValue] = useState('');
   const [contentValue, setContentValue] = useState('');
-  const {
-    addEpisodeData,
-    removeEpisodeData,
-    episodeData,
-    addEpisodeNote,
-    updateEpisodeNote,
-    refetch,
-  } = useEpisodes();
+  const { episodeData, addEpisodeNote, updateEpisodeNote, refetch } =
+    useEpisodes();
 
   const { setDeviceID, playerIsActive, playerIsDetailed, setPlayerIsDetailed } =
     useContext(PlayerContext);
@@ -64,7 +59,7 @@ export default function OverlayPlayer({
   }, [playerIsActive]);
 
   const scaleProps = useSpring({
-    transform: isOpen ? 'scale(0.7)' : 'scale(1)',
+    transform: isOpen ? 'scale(0.65)' : 'scale(1)',
     from: { transform: 'scale(1)' },
     config: { friction: isOpen ? 18 : 21 },
   });
@@ -133,7 +128,7 @@ export default function OverlayPlayer({
 
       setCurrentTrack(track_window.current_track);
       setPaused(paused);
-      setPlaybackProgress(position);
+      setPlaybackProgress(position / duration);
       player.getCurrentState().then((state) => {
         !state ? setActive(false) : setActive(true);
       });
@@ -165,6 +160,7 @@ export default function OverlayPlayer({
   }
 
   function handleAddButtonClick() {
+    console.log(playbackProgress);
     setTitleValue('');
     setContentValue('');
 
@@ -229,15 +225,18 @@ export default function OverlayPlayer({
           {currentTrack.name}
         </Header>
         {!isOpen && (
-          <animated.div style={vanishProps} className={styles.playback}>
-            <img
-              src={
-                currentTrack.album.images[currentTrack.album.images.length - 1]
-                  .url
-              }
-              className={styles.playback__cover}
-              alt=""
-            />
+          <>
+            <animated.div style={vanishProps} className={styles.playback}>
+              <img
+                src={
+                  currentTrack.album.images[
+                    currentTrack.album.images.length - 1
+                  ].url
+                }
+                className={styles.playback__cover}
+                alt=""
+              />
+            </animated.div>
             <div className={styles.playback__info}>
               <Typography type="h2" className={styles.info__name}>
                 {currentTrack.name}
@@ -246,19 +245,30 @@ export default function OverlayPlayer({
                 {currentTrack.artists[0].name}
               </Typography>
             </div>
-          </animated.div>
+          </>
         )}
-        <animated.div style={scaleProps} className={styles.play}>
-          {/* TODO: Insert Slider Music ProgressBar */}
-          <PlayControls
-            type={'squareBig'}
-            isPlay={!isPaused}
-            onBackwardSkip={() => player?.previousTrack()}
-            onForwardSkip={() => player?.nextTrack()}
-            togglePlay={() => player?.togglePlay()}
-            className={styles.playControls}
-          />
-        </animated.div>
+        <div className={`${styles.controls} ${styles[`controls--${isOpen}`]}`}>
+          <div className={styles.slider}>
+            <Slider
+              handleOnChange={() => console.log('change')}
+              percentageValue={playbackProgress * 100}
+            />
+            <div className={styles.slider__time}>
+              <Typography type="subHeading">0:00</Typography>
+              <Typography type="subHeading">3:00</Typography>
+            </div>
+          </div>
+          <animated.div style={scaleProps} className={styles.play}>
+            <PlayControls
+              type={'squareBig'}
+              isPlay={!isPaused}
+              onBackwardSkip={() => player?.previousTrack()}
+              onForwardSkip={() => player?.nextTrack()}
+              togglePlay={() => player?.togglePlay()}
+              className={styles.playControls}
+            />
+          </animated.div>
+        </div>
       </div>
       <Drawer
         className={styles.drawer}

@@ -48,7 +48,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-auto-rows: auto auto 0.5fr 1fr;
   justify-items: center;
 }
 
@@ -56,28 +56,53 @@
   height: 25%;
 }
 
+.controls {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  align-self: center;
+  justify-items: center;
+  padding: 1.25rem 0.5rem;
+}
+
+.controls--true {
+  gap: 0;
+  padding: 0;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slider__time {
+  padding-top: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
 .header {
   align-self: flex-start;
   width: 100%;
-  padding-bottom: 1rem;
+  padding-bottom: 3vh;
 }
 
 .playback {
   display: grid;
   place-items: center;
-  padding-bottom: 1rem;
+  grid-template-rows: auto 1fr;
 }
 
 .playback__cover {
   width: 100%;
+  padding: 0 0.5rem;
   max-width: 20rem;
-  border-radius: 8px;
   object-fit: contain;
   margin-bottom: 1rem;
 }
 
 .playback__info {
   text-align: center;
+  place-self: center;
 }
 
 .info__name {
@@ -95,12 +120,9 @@
   -webkit-box-orient: vertical;
 }
 
-.playControls {
-  padding-bottom: 1rem;
-}
-
 .drawer {
   position: fixed;
+  z-index: 4;
 }
 
 .noteWrapper {
@@ -115,4 +137,5 @@
   bottom: 1rem;
   right: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 5;
 }
