@@ -41,6 +41,7 @@ export default function OverlayPlayer({
   const [isActive, setActive] = useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = useState(track);
   const [playbackProgress, setPlaybackProgress] = useState<number>(0);
+  const [playbackTimestamp, setPlaybackTimestamp] = useState<number>(0);
 
   //note states
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -128,6 +129,7 @@ export default function OverlayPlayer({
 
       setCurrentTrack(track_window.current_track);
       setPaused(paused);
+      setPlaybackTimestamp(position);
       setPlaybackProgress(position / duration);
       player.getCurrentState().then((state) => {
         !state ? setActive(false) : setActive(true);
@@ -168,7 +170,7 @@ export default function OverlayPlayer({
       id: uuidv1(),
       title: titleValue,
       content: contentValue,
-      timestamp: playbackProgress,
+      timestamp: playbackTimestamp,
     };
 
     setActiveNoteID(newNote.id);
