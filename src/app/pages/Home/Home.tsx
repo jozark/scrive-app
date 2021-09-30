@@ -19,7 +19,8 @@ type HomeProps = {
 export default function Home({ token }: HomeProps): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
   const { episodeData } = useEpisodes();
-  const { deviceID, setPlayerIsActive } = useContext(PlayerContext);
+  const { deviceID, setPlayerIsActive, playerIsActive } =
+    useContext(PlayerContext);
 
   async function playEpisode(uri: string): Promise<void> {
     await fetch(`/api/player/${deviceID}/${uri}`, {
@@ -50,7 +51,10 @@ export default function Home({ token }: HomeProps): JSX.Element {
   }, []);
 
   return (
-    <main className={styles.container}>
+    <main
+      className={styles.container}
+      style={{ height: `${playerIsActive ? 'calc( 100vh - 60px )' : '100vh'}` }}
+    >
       <Header className={styles.header} type="home">
         Scrive
       </Header>
