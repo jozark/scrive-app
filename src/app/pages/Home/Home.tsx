@@ -12,11 +12,7 @@ import useEpisodes from '../../hooks/useEpisodes';
 import { msTimeFormat } from '../../utils/utils';
 import styles from './Home.module.css';
 
-type HomeProps = {
-  token: string;
-};
-
-export default function Home({ token }: HomeProps): JSX.Element {
+export default function Home(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
   const { episodeData } = useEpisodes();
   const { deviceID, setPlayerIsActive, playerIsActive } =
@@ -32,23 +28,6 @@ export default function Home({ token }: HomeProps): JSX.Element {
     setPlayerIsActive(episode.id);
     playEpisode(episode.uri);
   }
-
-  const playerInfo = async () => {
-    const response = await fetch(`https://api.spotify.com/v1/me/player`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const playerData = await response.json();
-    console.log(playerData);
-  };
-
-  useEffect(() => {
-    playerInfo();
-  }, []);
 
   return (
     <main

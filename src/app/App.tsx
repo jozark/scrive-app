@@ -37,7 +37,7 @@ function App(): JSX.Element {
                 </SpotifyLoginButton>
               </div>
             ) : (
-              <Home token={token} />
+              <Home />
             )}
           </Route>
         </Switch>

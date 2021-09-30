@@ -58,43 +58,26 @@ export default function Spotify(): JSX.Element {
       >
         Import
       </Header>
-      {!token ? (
-        <>
-          <SpotifyLoginButton
-            className={styles.loginButton}
-            url="/api/auth/login"
-          >
-            Connect with Spotify
-          </SpotifyLoginButton>
-        </>
-      ) : (
-        <>
-          <SearchBar
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            handleSearch={(event) => handleSearch(event)}
-          />
-          {isLoading ? (
-            <p>is loading</p>
-          ) : (
-            <div className={styles.cardWrapper}>
-              {episodes &&
-                episodes[0]?.title &&
-                episodes.map((data) => (
-                  <EpisodeCard
-                    handleButtonClick={() => handleAddClick(data)}
-                    key={data.id}
-                    type="import"
-                    image={data.image}
-                    title={data.title}
-                    show={data.show}
-                    time={msTimeFormat(data.duration).toString()}
-                  />
-                ))}
-            </div>
-          )}
-        </>
-      )}
+      <SearchBar
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        handleSearch={(event) => handleSearch(event)}
+      />
+      <div className={styles.cardWrapper}>
+        {episodes &&
+          episodes[0]?.title &&
+          episodes.map((data) => (
+            <EpisodeCard
+              handleButtonClick={() => handleAddClick(data)}
+              key={data.id}
+              type="import"
+              image={data.image}
+              title={data.title}
+              show={data.show}
+              time={msTimeFormat(data.duration).toString()}
+            />
+          ))}
+      </div>
     </main>
   );
 }
