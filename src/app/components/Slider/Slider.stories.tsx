@@ -11,6 +11,6 @@ export default {
   },
 };
 
-export const addButton = (): JSX.Element => (
+export const AudioSlider = (): JSX.Element => (
   <Slider percentageValue={0} handleOnChange={() => console.log('changes')} />
 );
