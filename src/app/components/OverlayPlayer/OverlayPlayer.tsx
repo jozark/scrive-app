@@ -247,37 +247,43 @@ export default function OverlayPlayer({
   }
 
   return playerIsDetailed ? (
-    <div className={styles.detailContainer}>
+    <div className={styles.detailedContainer}>
       <div
-        className={`${styles.mainPlayer} ${
-          styles[`mainPlayerIsOpen--${isOpen}`]
+        className={`${styles.detailed__player} ${
+          styles[`detailed__playerIsOpen--${isOpen}`]
         }`}
       >
         <Header
-          className={`${styles.header} ${styles[`header--${isOpen}`]}`}
+          className={`${styles.detailed__header} ${
+            styles[`detailed__header--${isOpen}`]
+          }`}
           type="options"
           onBackClick={() => handleBackClick()}
         >
           {currentTrack.name}
         </Header>
         {!isOpen && (
-          <>
-            <animated.div style={vanishProps} className={styles.playback}>
-              <img
-                src={
-                  currentTrack.album.images[
-                    currentTrack.album.images.length - 1
-                  ].url
-                }
-                className={styles.playback__cover}
-                alt=""
-              />
-            </animated.div>
-          </>
+          <animated.div
+            style={vanishProps}
+            className={styles.detailed__playback}
+          >
+            <img
+              src={
+                currentTrack.album.images[currentTrack.album.images.length - 1]
+                  .url
+              }
+              className={styles.playback__cover}
+              alt=""
+            />
+          </animated.div>
         )}
-        <div className={`${styles.controls} ${styles[`controls--${isOpen}`]}`}>
+        <div
+          className={`${styles.detailed__controls} ${
+            styles[`detailed__controls--${isOpen}`]
+          }`}
+        >
           {!isOpen ? (
-            <section className={styles.playback__info}>
+            <section className={styles.controls__info}>
               <Typography type="h2" className={styles.info__name}>
                 {currentTrack.name}
               </Typography>
@@ -288,7 +294,7 @@ export default function OverlayPlayer({
           ) : (
             <></>
           )}
-          <div className={styles.slider}>
+          <div className={styles.controls__slider}>
             <Slider
               handleOnChange={(event) => handleOnSliderChange(event)}
               percentageValue={playbackProgress * 100}
@@ -317,14 +323,14 @@ export default function OverlayPlayer({
         </div>
       </div>
       <Drawer
-        className={styles.drawer}
+        className={styles.detailed__drawer}
         display={activeNoteID ? 'note' : 'list'}
         isOpen={isOpen}
         onHandleClick={handleHandleClick}
         onBackArrowClick={handleBackArrowClick}
         onOptionsClick={() => console.log('show me options')}
       >
-        <div className={styles.noteWrapper}>
+        <div className={styles.drawer__noteWrapper}>
           {activeNoteID ? (
             <NoteCard
               titleValue={titleValue}
@@ -372,7 +378,7 @@ export default function OverlayPlayer({
         onButtonClick={
           activeNoteID ? handleBackArrowClick : handleAddButtonClick
         }
-        className={styles.addButton}
+        className={styles.detailed__addButton}
       >
         {activeNoteID ? (
           <CheckIcon width={28} height={28} fill="#fff" />
@@ -382,9 +388,9 @@ export default function OverlayPlayer({
       </Button>
     </div>
   ) : (
-    <div className={`${styles.bar} ${className}`}>
+    <div className={`${styles.card__bar} ${className}`}>
       <div
-        className={styles.progressCard}
+        className={styles.card__progress}
         style={{ right: `${100 - playbackProgress * 100}%` }}
       />
       <img
@@ -392,10 +398,13 @@ export default function OverlayPlayer({
           currentTrack.album.images[currentTrack.album.images.length - 1].url
         }
         alt=""
-        className={styles.cover}
+        className={styles.card__cover}
         onClick={() => setPlayerIsDetailed(true)}
       />
-      <div className={styles.text} onClick={() => setPlayerIsDetailed(true)}>
+      <div
+        className={styles.card__text}
+        onClick={() => setPlayerIsDetailed(true)}
+      >
         <Typography type="p" className={styles.text__head}>
           {currentTrack.name}
         </Typography>
