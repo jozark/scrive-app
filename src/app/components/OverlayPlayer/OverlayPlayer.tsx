@@ -131,6 +131,8 @@ export default function OverlayPlayer({
     });
   };
 
+  // const playbackListener = Spotify.PlaybackStateListener;
+
   const scaleProps = useSpring({
     transform: isOpen ? 'scale(0.65)' : 'scale(1)',
     from: { transform: 'scale(1)' },
@@ -142,9 +144,20 @@ export default function OverlayPlayer({
     from: { transform: 'scale(1)' },
   });
 
-  // while (!isPaused) {
-  //   setInterval(() => setPlaybackTimestamp(playbackTimestamp + 1000), 1000);
-  // }
+  useEffect(() => {
+    if (isPaused || !player) {
+      return;
+    }
+    const intervalID = setInterval(async () => {
+      const state = await player.getCurrentState();
+      if (!state) {
+        return;
+      }
+      const position = state.position;
+      setPlaybackTimestamp(position);
+    }, 1000);
+    return () => clearInterval(intervalID);
+  }, [isPaused, player]);
 
   function handleBackClick() {
     setPlayerIsDetailed(false);
