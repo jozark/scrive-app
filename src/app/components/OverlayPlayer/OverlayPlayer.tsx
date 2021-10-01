@@ -142,7 +142,7 @@ export default function OverlayPlayer({
     from: { transform: 'scale(1)' },
   });
 
-  // if (!isPaused) {
+  // while (!isPaused) {
   //   setInterval(() => setPlaybackTimestamp(playbackTimestamp + 1000), 1000);
   // }
 
@@ -180,19 +180,17 @@ export default function OverlayPlayer({
     setIsOpen(!isOpen);
   }
 
-  async function handleOnSliderClick(
+  async function handleOnSliderChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
-    // console.log(+event.target.value, 'event');
+    setPlaybackProgress(+event.target.value * 0.01);
+  }
+
+  async function handleOnTouchEnd(event: React.TouchEvent<HTMLInputElement>) {
+    console.log(event.target, 'targetMouse');
     const seekingTime = Math.round(
       +event.target.value * 0.01 * playbackDuration
     );
-    // console.log(playbackDuration, 'durations');
-    console.log(seekingTime, 'seeking');
-    // setTimeSeek(seekingTime);
-    // console.log(timeSeek, 'time');
-    // console.log(debouncedTimeSeek, 'ddeb');
-    // console.log(playbackDuration, 'dura');
     await fetch(`/api/player/${seekingTime}`, {
       method: 'PUT',
     });
@@ -292,8 +290,10 @@ export default function OverlayPlayer({
           )}
           <div className={styles.slider}>
             <Slider
-              handleOnChange={(event) => handleOnSliderClick(event)}
+              handleOnChange={(event) => handleOnSliderChange(event)}
               percentageValue={playbackProgress * 100}
+              handleOnMouseUp={(event) => console.log(event, 'mouse')}
+              handleOnTouchEnd={(event) => handleOnTouchEnd(event)}
             />
             <div className={styles.slider__time}>
               <Typography type="subHeading">

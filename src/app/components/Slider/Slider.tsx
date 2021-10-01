@@ -3,6 +3,8 @@ import styles from './Slider.module.css';
 
 type SliderProps = {
   handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnMouseUp: (event: React.MouseEvent<HTMLInputElement>) => void;
+  handleOnTouchEnd: (event: React.TouchEvent<HTMLInputElement>) => void;
   percentageValue: number;
   className?: string;
 };
@@ -10,6 +12,8 @@ type SliderProps = {
 export default function Slider({
   percentageValue: percentage,
   handleOnChange,
+  handleOnMouseUp,
+  handleOnTouchEnd,
   className,
 }: SliderProps): JSX.Element {
   const [position, setPosition] = useState(0);
@@ -38,6 +42,8 @@ export default function Slider({
         type="range"
         step="0.01"
         onChange={handleOnChange}
+        onMouseUp={handleOnMouseUp}
+        onTouchEnd={handleOnTouchEnd}
       />
     </div>
   );
