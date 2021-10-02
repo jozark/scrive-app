@@ -9,6 +9,7 @@ import useDebounce from '../../hooks/useDebounce';
 import useSearchEpisodes from '../../hooks/useSearchEpisodes';
 import useEpisodes from '../../hooks/useEpisodes';
 import type { Episode } from '../../../lib/types';
+import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
@@ -74,13 +75,14 @@ export default function Spotify(): JSX.Element {
               {episodes &&
                 episodes[0]?.title &&
                 episodes.map((data) => (
-                  <EpisodeCard
+                  <NewEpisodeCard
                     handleButtonClick={() => handleAddClick(data)}
                     key={data.id}
                     type="import"
                     image={data.image}
                     title={data.title}
                     show={data.show}
+                    content={data.description}
                     time={data.duration.toString()}
                   />
                 ))}
