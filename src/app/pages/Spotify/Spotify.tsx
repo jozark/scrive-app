@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
+
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Header from '../../components/Header/Header';
 import styles from './Spotify.module.css';
