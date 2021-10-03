@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Episode } from '../../../lib/types';
 import AddIcon from '../../components/assets/AddIcon';
