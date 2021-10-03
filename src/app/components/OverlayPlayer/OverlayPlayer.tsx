@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 import PlayControls from '../PlayControls/PlayControls';
 import Drawer from '../Drawer/Drawer';
 import { animated, useSpring } from 'react-spring';
-import { msTimeFormat, msTimeFormatToMin } from '../../utils/utils';
+import { msTimeFormatToMin } from '../../utils/utils';
 import NoteCard from '../NoteCard/NoteCard';
 import AddIcon from '../assets/AddIcon';
 import useEpisodes from '../../hooks/useEpisodes';
@@ -350,7 +350,7 @@ export default function OverlayPlayer({
               contentValue={contentValue}
               setTitleValue={setTitleValue}
               setContentValue={setContentValue}
-              timestampBegin={msTimeFormat(activeNoteTimeStamp)}
+              timestampBegin={msTimeFormatToMin(activeNoteTimeStamp)}
               expanded={true}
               handleOnButtonClick={() =>
                 console.log('"handle me" - Play Button on Card')
@@ -366,7 +366,7 @@ export default function OverlayPlayer({
                     <NoteCard
                       key={note.id}
                       titleValue={note.title}
-                      timestampBegin={msTimeFormat(note.timestamp)}
+                      timestampBegin={msTimeFormatToMin(note.timestamp)}
                       contentValue={note.content}
                       expanded={false}
                       handleOnCardClick={() => handleOnCardClick(note)}
