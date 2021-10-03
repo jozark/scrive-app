@@ -70,4 +70,5 @@ export type Episode = {
   image: string;
   duration: number;
   uri: string;
+  description: string;
 };

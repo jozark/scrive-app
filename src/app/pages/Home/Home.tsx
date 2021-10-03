@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
-import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
 import Header from '../../components/Header/Header';
+import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Typography from '../../components/Typography/Typography';
 import useEpisodes from '../../hooks/useEpisodes';
@@ -41,12 +41,13 @@ export default function Home(): JSX.Element {
       <div className={styles.cardWrapper}>
         {episodeData &&
           episodeData.map((data) => (
-            <EpisodeCard
+            <NewEpisodeCard
               key={data.id}
               type="note"
               image={data.image}
               title={data.title}
               show={data.show}
+              content={data.description}
               time={data.duration.toString()}
             />
           ))}
