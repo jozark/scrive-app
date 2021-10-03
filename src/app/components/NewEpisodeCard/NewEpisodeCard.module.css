@@ -77,9 +77,9 @@
 
 .icon__action {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   gap: 0.5rem;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .icons__timeWrapper {
