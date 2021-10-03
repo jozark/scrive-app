@@ -57,8 +57,9 @@ export default function Spotify(): JSX.Element {
           episodes.map((data) => (
             <NewEpisodeCard
               key={data.id}
-              handleOnClick={() => handleAddClick(data)}
-              type="note"
+              handleOnClick={() => console.log('EpisodePage')}
+              handleButtonClick={() => handleAddClick(data)}
+              type="import"
               image={data.image}
               title={data.title}
               show={data.show}
