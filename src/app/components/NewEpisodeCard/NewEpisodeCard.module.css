@@ -1,6 +1,7 @@
 .card {
   display: grid;
   gap: 0.5rem;
+  overflow: hidden;
   background-color: var(--bg-primary);
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--accent-secondary);
