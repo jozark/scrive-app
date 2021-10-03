@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import type { Episode } from '../../../lib/types';
 import AddIcon from '../../components/assets/AddIcon';
 import Button from '../../components/Button/Button';
-import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
 import Header from '../../components/Header/Header';
+import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Typography from '../../components/Typography/Typography';
 import { PlayerContext } from '../../context/PlayerContext';
@@ -60,7 +60,7 @@ export default function Home(): JSX.Element {
       <div className={styles.cardWrapper}>
         {episodeData &&
           episodeData.map((data) => (
-            <EpisodeCard
+            <NewEpisodeCard
               key={data.id}
               handleOnClick={() => handleOnCardClick(data)}
               type="note"
@@ -68,6 +68,7 @@ export default function Home(): JSX.Element {
               title={data.title}
               show={data.show}
               time={msTimeFormat(data.duration).toString()}
+              content={data.description}
             />
           ))}
       </div>

@@ -71,6 +71,7 @@ export type Episode = {
   duration: number;
   uri: string;
   notes: Note[];
+  description: string;
 };
 
 export type Note = {

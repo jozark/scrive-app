@@ -39,6 +39,7 @@ export async function searchEpisode(
         image: smallestImage.url,
         duration: episode.duration_ms,
         uri: episode.uri,
+        description: episode.description,
       };
     })
   );

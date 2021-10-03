@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useContext } from 'react';
 import EpisodeCard from '../../components/EpisodeCard/EpisodeCard';
+=======
+import React, { useState, useEffect } from 'react';
+
+>>>>>>> main
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Header from '../../components/Header/Header';
 import styles from './Spotify.module.css';
@@ -10,7 +15,12 @@ import useSearchEpisodes from '../../hooks/useSearchEpisodes';
 import { msTimeFormat } from '../../utils/utils';
 import useEpisodes from '../../hooks/useEpisodes';
 import type { Episode } from '../../../lib/types';
+<<<<<<< HEAD
 import { PlayerContext } from '../../context/PlayerContext';
+import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
+=======
+import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
+>>>>>>> main
 
 export default function Spotify(): JSX.Element {
   const history = useHistory();
@@ -67,14 +77,15 @@ export default function Spotify(): JSX.Element {
         {episodes &&
           episodes[0]?.title &&
           episodes.map((data) => (
-            <EpisodeCard
-              handleButtonClick={() => handleAddClick(data)}
+            <NewEpisodeCard
               key={data.id}
-              type="import"
+              handleOnClick={() => handleAddClick(data)}
+              type="note"
               image={data.image}
               title={data.title}
               show={data.show}
               time={msTimeFormat(data.duration).toString()}
+              content={data.description}
             />
           ))}
       </div>
