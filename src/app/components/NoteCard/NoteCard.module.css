@@ -37,7 +37,9 @@ textarea:focus {
   font-size: 0.8125rem;
   color: var(--txt-secondary);
   background-color: var(--bg-light);
-  padding: 0.125rem;
+  padding-left: 0.25rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
   border-radius: 3px;
   width: 100%;
 }
