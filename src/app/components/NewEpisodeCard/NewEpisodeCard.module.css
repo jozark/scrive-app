@@ -71,16 +71,14 @@
 }
 
 .icons__textTime {
-  /* background-color: var(--bg-light);
-  padding: 0.125rem;
-  border-radius: 3px; */
   font-size: 0.8rem;
   color: var(--txt-secondary);
 }
 
 .icon__action {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  gap: 0.5rem;
   align-items: center;
 }
 

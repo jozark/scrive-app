@@ -68,35 +68,37 @@ export default function EpisodeCard({
             </div>
           )}
         </div>
-        {type === 'note' && (
-          <div className={styles.icon__action}>
-            <Button
-              type="icon"
-              onButtonClick={() => console.log('fhsdf')}
-              className={styles.more}
-            >
-              <ShareIcon width={13} height={13} fill="#fff" />
-            </Button>
-            <Button
-              type="icon"
-              onButtonClick={() => console.log('fhsdf')}
-              className={styles.more}
-            >
-              <MoreIcon width={13} height={13} fill="#fff" />
-            </Button>
-          </div>
-        )}
-        <Button
-          className={styles.addButton}
-          type="squareSmall"
-          onButtonClick={handleButtonClick}
-        >
-          {type === 'note' ? (
-            <PlayIcon width={11} height={11} fill="#fff" />
-          ) : (
-            <AddIcon width={11} height={11} fill="#fff" />
+        <div className={styles.icon__action}>
+          {type === 'note' && (
+            <>
+              <Button
+                type="icon"
+                onButtonClick={() => console.log('fhsdf')}
+                className={styles.more}
+              >
+                <ShareIcon width={13} height={13} fill="#fff" />
+              </Button>
+              <Button
+                type="icon"
+                onButtonClick={() => console.log('fhsdf')}
+                className={styles.more}
+              >
+                <MoreIcon width={13} height={13} fill="#fff" />
+              </Button>
+            </>
           )}
-        </Button>
+          <Button
+            className={styles.addButton}
+            type="squareSmall"
+            onButtonClick={handleButtonClick}
+          >
+            {type === 'note' ? (
+              <PlayIcon width={11} height={11} fill="#fff" />
+            ) : (
+              <AddIcon width={11} height={11} fill="#fff" />
+            )}
+          </Button>
+        </div>
       </div>
     </article>
   );
