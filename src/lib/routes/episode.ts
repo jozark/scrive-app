@@ -22,7 +22,7 @@ router.get('/search', async (req, res) => {
     const episodes = await searchEpisode(query, token);
     res.send(episodes);
   } catch (err) {
-    console.error(err);
+    console.error(err, 'custom');
     res.status(500).json({ msg: err });
   }
 });
