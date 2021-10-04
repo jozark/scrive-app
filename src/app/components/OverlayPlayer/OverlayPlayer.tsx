@@ -39,7 +39,7 @@ export default function OverlayPlayer({
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
   const [isPaused, setPaused] = useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = useState(track);
-  const [playbackProgress, setPlaybackProgress] = useState<number>(0);
+  const [playbackprogress, setPlaybackprogress] = useState<number>(0);
   const [playbackTimestamp, setPlaybackTimestamp] = useState<number>(0);
   const [playbackDuration, setPlaybackDuration] = useState<number>(0);
 
@@ -120,7 +120,7 @@ export default function OverlayPlayer({
       setPaused(paused);
       setPlaybackTimestamp(position);
       setPlaybackDuration(duration);
-      setPlaybackProgress(position / duration);
+      setPlaybackprogress(position / duration);
     });
   };
 
@@ -189,14 +189,12 @@ export default function OverlayPlayer({
   async function handleOnSliderChange(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
-    setPlaybackProgress(+event.target.value * 0.01);
+    setPlaybackprogress(+event.target.value * 0.01);
   }
 
-  async function handleOnTouchEnd(event: React.TouchEvent<HTMLInputElement>) {
-    console.log(event.target, 'targetMouse');
-    const seekingTime = Math.round(
-      +event.target.value * 0.01 * playbackDuration
-    );
+  async function handleOnTouchEnd(value: string) {
+    console.log(value, 'targetMouse');
+    const seekingTime = Math.round(+value * 0.01 * playbackDuration);
     await fetch(`/api/player/${seekingTime}`, {
       method: 'PUT',
     });
@@ -303,9 +301,11 @@ export default function OverlayPlayer({
           <div className={styles.controls__slider}>
             <Slider
               handleOnChange={(event) => handleOnSliderChange(event)}
-              percentageValue={playbackProgress * 100}
+              percentageValue={playbackprogress * 100}
               handleOnMouseUp={(event) => console.log(event, 'mouse')}
-              handleOnTouchEnd={(event) => handleOnTouchEnd(event)}
+              handleOnTouchEnd={(event) =>
+                handleOnTouchEnd(event.currentTarget.value)
+              }
             />
             <div className={styles.slider__time}>
               <Typography type="subHeading">
@@ -397,7 +397,10 @@ export default function OverlayPlayer({
     <div className={`${styles.card__bar} ${className}`}>
       <div
         className={styles.card__progress}
-        style={{ right: `${100 - playbackProgress * 100}%` }}
+        /* stylelint-disable-next-line value-keyword-case */
+        style={{
+          right: `${100 - playbackprogress * 100}%`,
+        }} /* stylelint-disable-line value-keyword-case */
       />
       <img
         src={
