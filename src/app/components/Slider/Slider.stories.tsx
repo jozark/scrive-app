@@ -12,5 +12,10 @@ export default {
 };
 
 export const AudioSlider = (): JSX.Element => (
-  <Slider percentageValue={0} handleOnChange={() => console.log('changes')} />
+  <Slider
+    percentageValue={0}
+    handleOnChange={() => console.log('changes')}
+    handleOnMouseUp={() => console.log('changes')}
+    handleOnTouchEnd={() => console.log('changes')}
+  />
 );
