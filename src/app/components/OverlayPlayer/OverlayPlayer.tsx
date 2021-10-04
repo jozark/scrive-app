@@ -353,7 +353,7 @@ export default function OverlayPlayer({
               timestampBegin={msTimeFormatToMin(activeNoteTimeStamp)}
               expanded={true}
               handleOnButtonClick={() =>
-                console.log('"handle me" - Play Button on Card')
+                handlePlayButtonCard(activeNoteTimeStamp)
               }
               handleOnTimestampClick={() => console.log('"handle me" - time')}
               handleOnSubmit={(event) => event.preventDefault()}
