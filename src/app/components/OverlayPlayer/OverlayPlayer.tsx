@@ -17,7 +17,6 @@ import type { Note } from '../../../lib/types';
 import { v1 as uuidv1 } from 'uuid';
 import CheckIcon from '../assets/CheckIcon';
 import Slider from '../Slider/Slider';
-import useDebounce from '../../hooks/useDebounce';
 
 const track = {
   name: '',
@@ -39,13 +38,10 @@ export default function OverlayPlayer({
   //player states
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
   const [isPaused, setPaused] = useState<boolean>(false);
-  const [isActive, setActive] = useState<boolean>(false);
   const [currentTrack, setCurrentTrack] = useState(track);
   const [playbackProgress, setPlaybackProgress] = useState<number>(0);
   const [playbackTimestamp, setPlaybackTimestamp] = useState<number>(0);
   const [playbackDuration, setPlaybackDuration] = useState<number>(0);
-  const [timeSeek, setTimeSeek] = useState<number>(0);
-  const debouncedTimeSeek = useDebounce<number>(timeSeek, 500);
 
   //note states
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -125,9 +121,6 @@ export default function OverlayPlayer({
       setPlaybackTimestamp(position);
       setPlaybackDuration(duration);
       setPlaybackProgress(position / duration);
-      player.getCurrentState().then((state) => {
-        !state ? setActive(false) : setActive(true);
-      });
     });
   };
 
