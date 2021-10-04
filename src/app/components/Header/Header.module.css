@@ -8,4 +8,8 @@
 
 .header > h2 {
   padding-top: 0.2rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }

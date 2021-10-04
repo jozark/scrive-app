@@ -1,8 +1,18 @@
 .container {
   background-color: var(--bg-primary);
-  height: 100vh;
   padding: 1rem 1.5rem;
   overflow: auto;
+  height: 100vh;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.container__playerCard--true {
+  height: calc(100vh - 60px);
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .header {

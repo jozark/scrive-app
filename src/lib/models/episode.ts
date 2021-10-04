@@ -22,9 +22,15 @@ export async function searchEpisode(
     }
   );
   const episodes: EpisodesFromAPISearch = await response.json();
+  // console.log(episodes, 'before if');
+  // if (episodes.episodes.items.includes(null)) {
+  //   console.log('episodes');
+  //   throw new Error('hfskdfs');
+  // }
+  const filteredItems = episodes.episodes.items.filter((item) => item !== null);
 
   const formattedEpisodes: Promise<Episode[]> = Promise.all(
-    episodes.episodes.items.map(async (episode: EpisodeFromAPISearch) => {
+    filteredItems.map(async (episode: EpisodeFromAPISearch) => {
       const smallestImage = episode.images.reduce((smallest, image) => {
         if (image.height < smallest.height) return image;
         return smallest;
@@ -40,6 +46,7 @@ export async function searchEpisode(
         duration: episode.duration_ms,
         uri: episode.uri,
         description: episode.description,
+        notes: [],
       };
     })
   );

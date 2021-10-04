@@ -30,7 +30,7 @@ export default function Header({
         <Typography type="h2" className={styles.header__text}>
           {children}
         </Typography>
-        {type === 'options' && <MoreIcon height={18} />}
+        {type === 'options' && <MoreIcon height={20} width={20} fill="#fff" />}
       </header>
     );
   }

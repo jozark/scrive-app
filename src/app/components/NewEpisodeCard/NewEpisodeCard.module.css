@@ -1,6 +1,7 @@
 .card {
   display: grid;
   gap: 0.5rem;
+  overflow: hidden;
   background-color: var(--bg-primary);
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--accent-secondary);
@@ -77,9 +78,9 @@
 
 .icon__action {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   gap: 0.5rem;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .icons__timeWrapper {

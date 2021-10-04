@@ -15,6 +15,7 @@
 }
 
 .card__info {
+  overflow: hidden;
   padding: 0.25rem 0;
   display: grid;
 }

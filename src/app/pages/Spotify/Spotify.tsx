@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useContext } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Header from '../../components/Header/Header';
 import styles from './Spotify.module.css';
-import SpotifyLoginButton from '../../components/SpotifyLoginButton/SpotifyLoginButton';
 import { useHistory } from 'react-router';
 import useDebounce from '../../hooks/useDebounce';
 import useSearchEpisodes from '../../hooks/useSearchEpisodes';
+import { msTimeFormat } from '../../utils/utils';
 import useEpisodes from '../../hooks/useEpisodes';
 import type { Episode } from '../../../lib/types';
+import { PlayerContext } from '../../context/PlayerContext';
 import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
 
 export default function Spotify(): JSX.Element {
@@ -16,26 +16,17 @@ export default function Spotify(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
   const debouncedValue = useDebounce<string>(searchValue, 500);
   const { addEpisodeData } = useEpisodes();
-  const [token, setToken] = useState('');
 
-  useEffect(() => {
-    async function getToken(): Promise<void> {
-      const response = await fetch('/api/auth/token');
-      const data = await response.json();
-      setToken(data.token);
-    }
+  const { playerIsActive } = useContext(PlayerContext);
 
-    getToken();
-  }, []);
-
-  const { episodes, isLoading } = useSearchEpisodes(debouncedValue);
+  const { episodes } = useSearchEpisodes(debouncedValue);
 
   function handleBackClick() {
     history.push('/');
   }
 
   function handleAddClick(episode: Episode) {
-    addEpisodeData(episode);
+    addEpisodeData({ ...episode, notes: [] });
     history.push('/');
   }
 
@@ -44,7 +35,10 @@ export default function Spotify(): JSX.Element {
   }
 
   return (
-    <main className={styles.container}>
+    <main
+      className={`${styles.container}`}
+      style={{ height: `${playerIsActive ? 'calc( 100vh - 60px )' : '100vh'}` }}
+    >
       <Header
         className={styles.header}
         type="default"
@@ -52,44 +46,28 @@ export default function Spotify(): JSX.Element {
       >
         Import
       </Header>
-      {!token ? (
-        <>
-          <SpotifyLoginButton
-            className={styles.loginButton}
-            url="/api/auth/login"
-          >
-            Connect with Spotify
-          </SpotifyLoginButton>
-        </>
-      ) : (
-        <>
-          <SearchBar
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-            handleSearch={(event) => handleSearch(event)}
-          />
-          {isLoading ? (
-            <p>is loading</p>
-          ) : (
-            <div className={styles.cardWrapper}>
-              {episodes &&
-                episodes[0]?.title &&
-                episodes.map((data) => (
-                  <NewEpisodeCard
-                    handleButtonClick={() => handleAddClick(data)}
-                    key={data.id}
-                    type="import"
-                    image={data.image}
-                    title={data.title}
-                    show={data.show}
-                    content={data.description}
-                    time={data.duration.toString()}
-                  />
-                ))}
-            </div>
-          )}
-        </>
-      )}
+      <SearchBar
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        handleSearch={(event) => handleSearch(event)}
+      />
+      <div className={styles.cardWrapper}>
+        {episodes &&
+          episodes[0]?.title &&
+          episodes.map((data) => (
+            <NewEpisodeCard
+              key={data.id}
+              handleOnClick={() => console.log('EpisodePage')}
+              handleButtonClick={() => handleAddClick(data)}
+              type="import"
+              image={data.image}
+              title={data.title}
+              show={data.show}
+              time={msTimeFormat(data.duration).toString()}
+              content={data.description}
+            />
+          ))}
+      </div>
     </main>
   );
 }

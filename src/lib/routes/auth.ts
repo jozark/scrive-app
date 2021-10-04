@@ -22,12 +22,22 @@ const randomString = (length: number) => {
 };
 
 router.get('/login', (_request, response) => {
-  const scopes = ['streaming', 'user-read-email', 'user-read-private'];
+  const scopes = [
+    'streaming',
+    'app-remote-control',
+    'user-read-email',
+    'user-read-private',
+    'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'user-library-read',
+    'user-library-modify',
+  ];
 
   const state = randomString(16);
 
   response.redirect(
-    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=http://localhost:3000/api/auth/callback&scopes=${scopes.join(
+    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=http://localhost:3000/api/auth/callback&scope=${scopes.join(
       '%20'
     )}&state=${state}`
   );
@@ -60,7 +70,7 @@ router.get('/callback', async (request, response) => {
   response.cookie('token', body.access_token, {
     maxAge: (body.expires_in - 60) * 1000,
   });
-  response.redirect('/spotify');
+  response.redirect('/');
 });
 
 router.get('/token', (request, response) => {

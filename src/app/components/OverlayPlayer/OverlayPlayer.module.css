@@ -1,0 +1,171 @@
+.card__bar {
+  position: relative;
+  background-color: var(--bg-secondary);
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-radius: 4px 4px 0 0;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+}
+
+.card__cover {
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.play {
+  z-index: 1;
+}
+
+.card__text {
+  z-index: 1;
+}
+
+.text__sub {
+  color: var(--txt-secondary);
+  font-size: 0.875rem;
+  padding-bottom: 0.125rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.text__head {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.detailedContainer {
+  display: grid;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-primary);
+}
+
+.detailed__player {
+  padding: 1rem 1.5rem;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-auto-rows: auto 1fr auto;
+  justify-items: center;
+  place-items: center;
+}
+
+.detailed__playerIsOpen--true {
+  height: 25%;
+}
+
+.detailed__controls {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 1.5rem;
+  padding-bottom: 10vh;
+  align-self: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.detailed__controls--true {
+  gap: 0;
+  padding: 0;
+}
+
+.controls__slider {
+  width: 100%;
+}
+
+.slider__time * {
+  font-size: 0.8rem;
+}
+
+.slider__time {
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detailed__header {
+  align-self: flex-start;
+  width: 100%;
+  padding-bottom: 3vh;
+}
+
+.detailed__header--true {
+  padding-bottom: 2vh;
+}
+
+.detailed__playback {
+  display: grid;
+  place-items: center;
+  grid-template-rows: auto 1fr;
+}
+
+.playback__cover {
+  width: 100%;
+  max-width: 20rem;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.controls__info {
+  text-align: center;
+  place-self: center;
+}
+
+.info__name {
+  padding: 0 0.5rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.info__artist {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.detailed__drawer {
+  position: fixed;
+  z-index: 4;
+}
+
+.drawer__noteWrapper {
+  display: grid;
+  align-content: flex-start;
+  gap: 0.75rem;
+  padding-bottom: 1.5rem;
+}
+
+.detailed__addButton {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 5;
+}
+
+.card__progress {
+  position: absolute;
+  background-color: #38384b;
+  border-radius: 5px 0 0 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
