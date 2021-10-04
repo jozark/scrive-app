@@ -6,6 +6,7 @@ import OverlayPlayer from './components/OverlayPlayer/OverlayPlayer';
 import PlayerContextProvider from './context/PlayerContext';
 import styles from './App.module.css';
 import SpotifyLoginButton from './components/SpotifyLoginButton/SpotifyLoginButton';
+import Typography from './components/Typography/Typography';
 
 function App(): JSX.Element {
   const [token, setToken] = useState('');
@@ -29,6 +30,9 @@ function App(): JSX.Element {
           <Route path="/">
             {!token ? (
               <div className={styles.container}>
+                <Typography type="h1" className={styles.scrive}>
+                  Scrive
+                </Typography>
                 <SpotifyLoginButton
                   className={styles.loginButton}
                   url="/api/auth/login"

@@ -13,6 +13,7 @@
 
 .loginButton {
   width: 80%;
+  align-self: flex-start;
 }
 
 .container {
@@ -20,4 +21,8 @@
   place-items: center;
   width: 100%;
   height: 100vh;
+}
+
+.scrive {
+  font-size: 2.5rem;
 }
