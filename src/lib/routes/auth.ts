@@ -62,7 +62,7 @@ router.get('/callback', async (request, response) => {
     },
     body: new URLSearchParams({
       code: code,
-      redirect_uri: 'http://localhost:3000/api/auth/callback',
+      redirect_uri: 'https://scrive-app.herokuapp.com/api/auth/callback',
       grant_type: 'authorization_code',
     }),
   });
