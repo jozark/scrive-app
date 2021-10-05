@@ -37,7 +37,7 @@ router.get('/login', (_request, response) => {
   const state = randomString(16);
 
   response.redirect(
-    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=http://localhost:3000/api/auth/callback&scope=${scopes.join(
+    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=https://scrive-app.herokuapp.com/callback&scope=${scopes.join(
       '%20'
     )}&state=${state}`
   );
