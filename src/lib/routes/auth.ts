@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import { Router } from 'express';
 import { URLSearchParams } from 'url';
 import fetch from 'node-fetch';
@@ -9,6 +6,10 @@ const router = Router();
 
 const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;
 const spotifyClientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+const redirectUri =
+  process.env.MODE === 'PRODUCTION'
+    ? 'https://scrive-app.herokuapp.com/api/auth/callback'
+    : 'http://localhost:3000/api/auth/callback';
 
 const randomString = (length: number) => {
   let text = '';
@@ -37,10 +38,14 @@ router.get('/login', (_request, response) => {
   const state = randomString(16);
 
   response.redirect(
-    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=http://localhost:3000/api/auth/callback&scope=${scopes.join(
+    `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
       '%20'
     )}&state=${state}`
   );
+  //   `https://accounts.spotify.com/authorize/?response_type=code&client_id=${spotifyClientId}&redirect_uri=http://localhost:3000/api/auth/callback&scope=${scopes.join(
+  //     '%20'
+  //   )}&state=${state}`
+  // );
 });
 
 router.get('/callback', async (request, response) => {
@@ -62,7 +67,7 @@ router.get('/callback', async (request, response) => {
     },
     body: new URLSearchParams({
       code: code,
-      redirect_uri: 'http://localhost:3000/api/auth/callback',
+      redirect_uri: redirectUri,
       grant_type: 'authorization_code',
     }),
   });
