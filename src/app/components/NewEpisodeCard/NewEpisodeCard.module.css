@@ -5,6 +5,7 @@
   background-color: var(--bg-primary);
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--accent-secondary);
+  height: fit-content;
 }
 
 .card__header {
