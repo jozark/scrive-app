@@ -7,5 +7,7 @@ export default {
 };
 
 export const SpotifyLogin = (): JSX.Element => (
-  <SpotifyLoginButton url="/">Connect with Spotify</SpotifyLoginButton>
+  <SpotifyLoginButton color="spotify" url="/">
+    Connect with Spotify
+  </SpotifyLoginButton>
 );

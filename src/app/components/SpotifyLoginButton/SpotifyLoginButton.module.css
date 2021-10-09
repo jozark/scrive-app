@@ -15,3 +15,7 @@
   align-self: center;
   margin: 0;
 }
+
+.accent {
+  background-color: var(--accent-primary);
+}
