@@ -36,6 +36,7 @@ function App(): JSX.Element {
                 <SpotifyLoginButton
                   className={styles.loginButton}
                   url="/api/auth/login"
+                  color="spotify"
                 >
                   Connect with Spotify
                 </SpotifyLoginButton>
