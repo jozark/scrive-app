@@ -1,4 +1,10 @@
+a {
+  text-decoration: none;
+}
+
 .container {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
   background-color: var(--bg-primary);
   height: calc(100vh - 60px);
   padding: 1rem 1.5rem;
@@ -37,4 +43,20 @@
   display: grid;
   gap: 1.25rem;
   padding-top: 2rem;
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--txt-secondary);
+}
+
+.placeholder__button {
+  width: 100%;
+}
+
+.placeholder__content {
+  display: grid;
+  gap: 2rem;
+  place-items: center;
 }

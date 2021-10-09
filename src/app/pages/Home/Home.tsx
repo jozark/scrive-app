@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Episode } from '../../../lib/types';
 import AddIcon from '../../components/assets/AddIcon';
+import NothingHere from '../../components/assets/NothingHere';
 import Button from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
 import NewEpisodeCard from '../../components/NewEpisodeCard/NewEpisodeCard';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import SpotifyLoginButton from '../../components/SpotifyLoginButton/SpotifyLoginButton';
 import Typography from '../../components/Typography/Typography';
 import { PlayerContext } from '../../context/PlayerContext';
 import useEpisodes from '../../hooks/useEpisodes';
@@ -14,7 +16,7 @@ import styles from './Home.module.css';
 
 export default function Home(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
-  const { episodeData } = useEpisodes();
+  const { episodeData, refetch } = useEpisodes();
   const { deviceID, setPlayerIsActive, playerIsActive } =
     useContext(PlayerContext);
 
@@ -24,6 +26,9 @@ export default function Home(): JSX.Element {
     });
   }
 
+  useEffect(() => {
+    refetch();
+  }, []);
   function handleOnCardClick(episode: Episode) {
     setPlayerIsActive(episode.id);
     playEpisode(episode.uri);
@@ -58,6 +63,19 @@ export default function Home(): JSX.Element {
         handleSearch={() => console.log('serrrrrsh')}
       ></SearchBar>
       <div className={styles.cardWrapper}>
+        {episodeData.length === 0 && (
+          <div className={styles.placeholder}>
+            <div className={styles.placeholder__content}>
+              <NothingHere />
+              <Typography type="h2">nothing here...</Typography>
+            </div>
+            <Link to="/spotify" className={styles.placeholder__button}>
+              <SpotifyLoginButton color="accent">
+                Import from Spotify
+              </SpotifyLoginButton>
+            </Link>
+          </div>
+        )}
         {episodeData &&
           episodeData.map((data) => (
             <NewEpisodeCard
