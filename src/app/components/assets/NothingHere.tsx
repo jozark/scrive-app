@@ -54,22 +54,22 @@ export default function NothingHere(): JSX.Element {
         opacity="0.62"
         d="M101.363 102.29C103.855 97.6716 110.423 91.2063 116.757 102.29"
         stroke="#252525"
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
       <path
         opacity="0.61"
         d="M101.363 77.2578C100.307 78.6996 98.6186 79.9355 96.0853 78.0817"
         stroke="black"
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
       <path
         d="M122.035 77.471C120.979 78.9128 119.29 80.1486 116.757 78.2949"
         stroke="black"
-        stroke-opacity="0.61"
-        stroke-width="3"
-        stroke-linecap="round"
+        strokeOpacity="0.61"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
       <defs>
         <linearGradient
@@ -80,7 +80,7 @@ export default function NothingHere(): JSX.Element {
           y2="132.235"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#908FDC" />
+          <stop stopColor="#908FDC" />
           <stop offset="1" stop-color="#807FC0" />
         </linearGradient>
       </defs>
