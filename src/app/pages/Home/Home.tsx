@@ -61,21 +61,22 @@ export default function Home(): JSX.Element {
         searchValue={searchValue}
         setSearchValue={setSearchValue}
         handleSearch={() => console.log('serrrrrsh')}
+        className={styles.searchbar}
       ></SearchBar>
-      <div className={styles.cardWrapper}>
-        {episodeData.length === 0 && (
-          <div className={styles.placeholder}>
-            <div className={styles.placeholder__content}>
-              <NothingHere />
-              <Typography type="h2">nothing here...</Typography>
-            </div>
-            <Link to="/spotify" className={styles.placeholder__button}>
-              <SpotifyLoginButton color="accent">
-                Import from Spotify
-              </SpotifyLoginButton>
-            </Link>
+      {episodeData.length === 0 && (
+        <div className={styles.placeholder}>
+          <div className={styles.placeholder__content}>
+            <NothingHere />
+            <Typography type="h2">nothing here...</Typography>
           </div>
-        )}
+          <Link to="/spotify" className={styles.placeholder__button}>
+            <SpotifyLoginButton color="accent">
+              Import from Spotify
+            </SpotifyLoginButton>
+          </Link>
+        </div>
+      )}
+      <div className={styles.cardWrapper}>
         {episodeData &&
           episodeData.map((data) => (
             <NewEpisodeCard
