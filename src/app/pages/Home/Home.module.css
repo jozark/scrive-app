@@ -43,7 +43,6 @@ a {
   align-self: flex-start;
   display: grid;
   gap: 1.25rem;
-  padding-top: 2rem;
 }
 
 .placeholder {
@@ -60,4 +59,8 @@ a {
   display: grid;
   gap: 2rem;
   place-items: center;
+}
+
+.searchbar {
+  margin-bottom: 2rem;
 }
